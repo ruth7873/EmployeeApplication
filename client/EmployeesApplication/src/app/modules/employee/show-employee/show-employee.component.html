@@ -1,0 +1,25 @@
+<p>show-employee works!</p>
+<div id="aaa">
+    <mat-card class="example-card">
+        <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title>{{employee?.firstName}} {{employee?.lastName}}</mat-card-title>
+        </mat-card-header>
+        <p><b>dateOfBirth:</b> {{ employee?.dateOfBirth}}</p>
+        <p><b>employmentStartDate:</b> {{ employee?.employmentStartDate}}</p>
+        <p>Gender: {{gengers[employee.gender]}}</p>
+    <mat-card-content>
+        <b>Course lecturer: {{employee?.identificationNumber}}</b>
+            <h2>employee roles:</h2>
+            <div *ngFor="let r of employee?.roles">
+                <h4>{{r.role.roleName}}</h4>
+                </div>
+        </mat-card-content>
+        <mat-card-actions>
+            <!-- <button mat-button (click)="print()">
+                <mat-icon>print</mat-icon>PRINT</button> -->
+            <!-- <button mat-button (click)="return()">
+                <mat-icon>arrow_back</mat-icon>RETURN</button> -->
+        </mat-card-actions>
+    </mat-card>
+    </div>
