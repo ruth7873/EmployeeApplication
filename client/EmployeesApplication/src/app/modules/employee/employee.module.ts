@@ -18,11 +18,14 @@ import { MatInputModule } from "@angular/material/input";
 import { RoleService } from "./role.service";
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatSelectModule } from '@angular/material/select';
+import { MatDialogActions } from "@angular/material/dialog";
+import { LoginService } from "../login/login.service";
+import { MatMomentDateModule } from "@angular/material-moment-adapter";
 
 @NgModule({
     declarations: [AddEmployeeComponent, AllEmployeesComponent, ShowEmployeeComponent],
-    imports: [EmployeeRoutingModule, HttpClientModule, CommonModule, ReactiveFormsModule, FormsModule, MatFormFieldModule, MatIconModule, MatDatepickerModule, MatNativeDateModule, MatRadioModule, MatCardModule, MatButtonModule, MatInputModule, MatSelectModule, MatGridListModule],
-    providers: [EmployeeService, RoleService],
+    imports: [EmployeeRoutingModule,MatDialogActions, HttpClientModule, CommonModule, ReactiveFormsModule, FormsModule, MatFormFieldModule, MatIconModule, MatDatepickerModule, MatNativeDateModule, MatRadioModule, MatCardModule, MatButtonModule, MatInputModule, MatSelectModule, MatGridListModule,MatMomentDateModule ],
+    providers: [EmployeeService, RoleService,LoginService],
     exports: [AddEmployeeComponent]
 })
 export class EmployeeModule { }

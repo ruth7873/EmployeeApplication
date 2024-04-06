@@ -97,6 +97,27 @@ namespace Server.Data.Migrations
                     b.ToTable("Roles");
                 });
 
+            modelBuilder.Entity("Server.Core.Entities.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
+                });
+
             modelBuilder.Entity("Server.Core.Entities.EmployeeRole", b =>
                 {
                     b.HasOne("Server.Core.Entities.Employee", "Employee")

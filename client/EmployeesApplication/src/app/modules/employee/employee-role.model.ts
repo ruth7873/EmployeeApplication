@@ -8,8 +8,8 @@ export class EmployeeRole {
     role: Role;
     entryDate: Date;
 
-    // constructor(role:Role,date:Date){
-    //   this.role=role;
-    //   this.entryDate=date;
-    // }
+    constructor(role:any){
+      this.role=role;
+      // this.entryDate=date;
+    }
   }

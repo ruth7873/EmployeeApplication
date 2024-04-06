@@ -1,0 +1,37 @@
+<div class="center-form">
+    <form [formGroup]="userForm" class="registration-form">
+        <mat-form-field>
+            <mat-label>User Name</mat-label>
+            <input matInput type="text" placeholder="User Name" formControlName="userName">
+            <mat-icon matSuffix>person</mat-icon>
+        </mat-form-field>
+        <div *ngIf="userForm.controls['userName'].errors && userForm.controls['userName'].touched" class="error-message">
+            <div *ngIf="!userForm.controls['userName'].errors['required'] && !userForm.controls['userName'].errors['minlength']">
+                You must enter at least 3 characters
+            </div>
+            <div *ngIf="userForm.controls['userName'].errors['required']">
+                This field is required
+            </div>
+        </div>
+
+        <mat-form-field>
+            <mat-label>Password</mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'" placeholder="Password" formControlName="password">
+            <mat-icon matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'">
+                {{hide ? 'visibility_off' : 'visibility'}}
+            </mat-icon>
+        </mat-form-field>
+        <div *ngIf="userForm.controls['password'].errors && userForm.controls['password'].touched" class="error-message">
+            <div *ngIf="!userForm.controls['password'].errors['required'] && !userForm.controls['password'].errors['minlength']">
+                You must enter at least 3 characters
+            </div>
+            <div *ngIf="userForm.controls['password'].errors['required']">
+                This field is required
+            </div>
+        </div>
+
+        <button mat-raised-button color="primary" type="submit" [disabled]="!userForm.valid" (click)="login()">
+            <mat-icon>login</mat-icon>
+            Register</button>
+    </form>
+</div>

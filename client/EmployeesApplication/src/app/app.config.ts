@@ -3,8 +3,12 @@ import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
-import { HttpClient } from '@angular/common/http';
+import { provideHttpClient } from '@angular/common/http';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes), provideClientHydration()]
+  providers: [provideRouter(routes), provideClientHydration(),provideAnimations(),    provideHttpClient(), // כאן הוספת withFetch()
+]
 };
+import { provideAnimations } from '@angular/platform-browser/animations';
+
+

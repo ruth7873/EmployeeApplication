@@ -1,0 +1,27 @@
+.mat-icon {
+    cursor: pointer;
+}
+
+button {
+    margin-top: 20px;
+}
+
+.mat-form-field {
+    width: 100%;
+}
+
+.center-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.registration-form {
+    width: 300px;
+}
+
+.error-message {
+    color: red;
+    margin-top: 5px;
+}

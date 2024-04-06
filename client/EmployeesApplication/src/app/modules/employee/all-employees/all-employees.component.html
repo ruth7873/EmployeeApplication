@@ -1,50 +1,57 @@
-<p>all-employees works!</p>
-
- 
-<div class="cards">
-  
-    <button mat-button (click)="editEmployee(newEmployee)">
+     <div class="table-header">
+      <button mat-button (click)="editEmployee(newEmployee)">
         <mat-icon>add_circle</mat-icon> Add Employee
       </button>
+      <button mat-button (click)="addRole()">
+        <mat-icon>add_circle</mat-icon> Add Role
+      </button>
       <button mat-button (click)="exportToExcel()"> <mat-icon>cloud_download</mat-icon> Export to Excel </button>
-
+    
       <div class="filter-container">
-          <input matInput type="text" placeholder="enter name of course" [(ngModel)]="inputToFilter" (input)="filter()" style="width: 200px;" />
+        <input matInput type="text" placeholder="Search by name" [(ngModel)]="inputToFilter" (input)="filter()" />
+        <mat-icon class="search-icon">search</mat-icon>
       </div>
+      
       <div class="filter-container">
         <mat-radio-group (change)="onSelectionChange($event)">
-          <mat-radio-button [value]="null">cancel</mat-radio-button>
-          <mat-radio-button [value]=0>Male</mat-radio-button>
-          <mat-radio-button [value]=1>Female</mat-radio-button>
+          <mat-radio-button [value]="null">Cancel</mat-radio-button>
+          <mat-radio-button [value]="0">Male</mat-radio-button>
+          <mat-radio-button [value]="1">Female</mat-radio-button>
         </mat-radio-group>
       </div>
+      
+     </div>
     
-    
-
-    <mat-card class="example-card"*ngFor="let employee of employees" >
-        <mat-card-header>
-            <div mat-card-avatar class="example-header-image"></div>
-            <mat-card-title>{{employee.lastName}} {{employee.firstName}}</mat-card-title>
-            <mat-card-subtitle>{{employee.identificationNumber}}</mat-card-subtitle>
-            <mat-card-subtitle>{{employee.employmentStartDate}}</mat-card-subtitle>
-
-        </mat-card-header>
-        <mat-card-actions>
-            <mat-icon>arrow_forward</mat-icon>
-            <button mat-button (click)="editEmployee(employee)">
-                <mat-icon>edit</mat-icon> Edit
+     <table class="employees-table">
+      <thead>
+        <tr>
+          <th>Last Name</th>
+          <th>First Name</th>
+          <th>Identification Number</th>
+          <th>Employment Start Date</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let employee of employees">
+          <tr>
+            <td>{{ employee.lastName }}</td>
+            <td>{{ employee.firstName }}</td>
+            <td>{{ employee.identificationNumber }}</td>
+            <td>{{ employee.employmentStartDate }}</td>
+            <td>
+              <button mat-icon-button (click)="editEmployee(employee)">
+                <mat-icon>edit</mat-icon>
               </button>
-              
-              <button mat-button (click)="showDetailes(employee)">
-                <mat-icon>arrow_forward</mat-icon> More Details
+              <button mat-icon-button (click)="showDetailes(employee)">
+                <mat-icon>info</mat-icon>
               </button>
-              
-            <!-- <button mat-button (click)="showDetailes(employee)" >More Detailes</button>
-            <mat-icon>edit</mat-icon>
-            <button mat-button (click)="editEmployee(employee)">Edit</button> -->
-            <mat-icon>delete</mat-icon>
-            <button mat-button (click)="deleteEmployee(employee.id)" >Delete</button>
-        </mat-card-actions>
-    </mat-card>
-    </div>
+              <button mat-icon-button (click)="deleteEmployee(employee.id)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
     

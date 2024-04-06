@@ -1,5 +1,6 @@
 @import '@angular/material/prebuilt-themes/indigo-pink.css';
 
+
 .mat-button {
     // background-color: #4CAF50;
     color: white;
@@ -20,13 +21,16 @@
     display: flex;
     justify-content: space-evenly;
 }
+
 #footer {
     bottom: 0;
+    position: fixed;
+    bottom: 0;
     width: 100%;
-  }
-  
-  #copyright {
+}
+
+#copyright {
     display: flex;
     justify-content: center;
     align-items: flex-end;
-  }
+}

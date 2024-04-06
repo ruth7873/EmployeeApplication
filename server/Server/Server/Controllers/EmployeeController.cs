@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Server.API.Model;
 using Server.Core.DTOs;
@@ -11,6 +12,7 @@ namespace Server.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+
     public class EmployeeController : ControllerBase
     {
         private readonly IEmployeeService _employeeService;
@@ -23,8 +25,9 @@ namespace Server.API.Controllers
 
         // GET: api/<EmployeeController>
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Get()
-        {
+       {
             var emps = await _employeeService.GetAllEmployeesAsync();
             var empDTO = emps.Select(e => _mapper.Map<EmployeeDTO>(e));
             return Ok(empDTO);
@@ -43,6 +46,7 @@ namespace Server.API.Controllers
 
         // POST api/<EmployeeController>
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Post([FromBody] EmployeePostModel employee)
         {
             var empToAdd = _mapper.Map<Employee>(employee);
@@ -54,6 +58,7 @@ namespace Server.API.Controllers
 
         // PUT api/<EmployeeController>/5
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> Put(int id, [FromBody] EmployeePostModel employee)
         {
             var empToUpdate=_mapper.Map<Employee>(employee);

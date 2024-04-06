@@ -10,10 +10,8 @@ namespace Server.Core.Entities
     {
         public int EmployeeId { get; set; }
         public Employee Employee { get; set; }
-
         public int RoleId { get; set; }
         public Role Role { get; set; }
-       
         public DateTime EntryDate { get; set; } // תאריך כניסה לתפקיד
 
 

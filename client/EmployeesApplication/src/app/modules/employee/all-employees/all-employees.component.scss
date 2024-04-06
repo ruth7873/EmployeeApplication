@@ -1,0 +1,68 @@
+.table-header {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #f0f0f0;
+    border-bottom: 1px solid #ccc;
+  }
+  .employees-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .employees-table th {
+    text-align: center;
+  }
+  
+  .employees-table td {
+    text-align: center;
+  }
+  
+  .employees-table th, .employees-table td {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .employees-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .employees-table tbody tr:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .filter-container {
+    margin-left: 10px;
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  
+  .filter-container input[type="text"] {
+    width: 200px;
+    padding: 8px 30px 8px 10px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+  }
+  
+  .filter-container input[type="text"]::placeholder {
+    color: #999;
+  }
+  
+  .filter-container .search-icon {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    color: #999;
+  }
+  
+  .mat-radio-button {
+    margin-right: 10px;
+  }
+  
+  .mat-radio-button:last-child {
+    margin-right: 0;
+  }
+  

@@ -1,192 +1,95 @@
 <h1>Employee Form</h1>
 
-<form *ngIf="employeeForm" [formGroup]="employeeForm">
+<form *ngIf="employeeForm" [formGroup]="employeeForm" class="employee-form">
 
   <div class="form-container">
 
-    <mat-label>First Name</mat-label>
-
-    <input matInput type="text" formControlName="firstName" name="firstName">
-
+    <mat-form-field>
+      <mat-label>First Name</mat-label>
+      <input matInput type="text" formControlName="firstName" name="firstName">
+      <mat-icon matSuffix>person</mat-icon>
+    </mat-form-field>
     <ng-container *ngIf="employeeForm.controls['firstName'].errors && employeeForm.controls['firstName'].touched">
-
-      <div *ngIf="employeeForm.controls['firstName'].errors['required']" style="color: red;">
-
+      <div *ngIf="employeeForm.controls['firstName'].errors['required']" class="error-message">
         This field is required
-
       </div>
-
     </ng-container>
 
-    <br>
-
-    <mat-label>Last Name</mat-label>
-
-    <input matInput type="text" formControlName="lastName" name="lastName">
-
+    <mat-form-field>
+      <mat-label>Last Name</mat-label>
+      <input matInput type="text" formControlName="lastName" name="lastName">
+      <mat-icon matSuffix>person</mat-icon>
+    </mat-form-field>
     <ng-container *ngIf="employeeForm.controls['lastName'].errors && employeeForm.controls['lastName'].touched">
-
-      <div *ngIf="employeeForm.controls['lastName'].errors['required']" style="color: red;">
-
+      <div *ngIf="employeeForm.controls['lastName'].errors['required']" class="error-message">
         This field is required
-
       </div>
-
     </ng-container>
 
-    <br>
-
-    <mat-label>Identification Number</mat-label>
-
-    <input matInput type="text" formControlName="identificationNumber" name="identificationNumber">
-
-    <ng-container
-
-      *ngIf="employeeForm.controls['identificationNumber'].errors && employeeForm.controls['identificationNumber'].touched">
-
-      <div *ngIf="employeeForm.controls['identificationNumber'].errors['required']" style="color: red;">
-
+    <mat-form-field>
+      <mat-label>Identification Number</mat-label>
+      <input matInput type="text" formControlName="identificationNumber" name="identificationNumber">
+      <mat-icon matSuffix>credit_card</mat-icon>
+    </mat-form-field>
+    <ng-container *ngIf="employeeForm.controls['identificationNumber'].errors && employeeForm.controls['identificationNumber'].touched">
+      <div *ngIf="employeeForm.controls['identificationNumber'].errors['required']" class="error-message">
         This field is required
-
       </div>
-
-    </ng-container>
-
-    <br> 
-    <mat-label>Gender</mat-label>
-    <mat-radio-group formControlName="gender">
-      <mat-radio-button [value]=0>Male</mat-radio-button>
-      <mat-radio-button [value]=1>Female</mat-radio-button>
-    </mat-radio-group>
-    <mat-label>Birth Date</mat-label>
-
-    <input type="date" formControlName="dateOfBirth" name="dateOfBirth">
-
-    <ng-container
-
-      *ngIf="employeeForm.controls['dateOfBirth'].errors && employeeForm.controls['dateOfBirth'].touched">
-
-      <div *ngIf="employeeForm.controls['dateOfBirth'].errors['required']" style="color: red;">
-
-        This field is required
-
+      <div *ngIf="!employeeForm.controls['identificationNumber'].errors['required'] &&employeeForm.controls['identificationNumber'].errors['invalidId']" class="error-message">
+        Invalid identification number
       </div>
-
     </ng-container>
-
-    <br> 
-
-    <mat-label>Employment Start Date</mat-label>
-
-    <input type="date" formControlName="employmentStartDate" name="employmentStartDate">
-
-    <ng-container
-
-      *ngIf="employeeForm.controls['employmentStartDate'].errors && employeeForm.controls['employmentStartDate'].touched">
-
-      <div *ngIf="employeeForm.controls['employmentStartDate'].errors['required']" style="color: red;">
-
-        This field is required
-
-      </div>
-
-    </ng-container>
-
-  </div>
- 
-  
-  
-   
-
-  <div formArrayName="roles">
-    <h2>Roles</h2>
-    <button *ngIf="availableRoles.length > 1" type="button" (click)="addRole()">+ Add another role</button>
-
-    <div *ngFor="let role of rolesControls; let i = index">
-      <label>Role:</label>
-
-      <select [formControl]="rolesControls[i]">
-        <option *ngFor="let r of availableRoles" [value]="r.id">{{r.roleName}}</option>
-      </select>
-
-      <input type="date" [formControl]="rolesControls2[i]" name="rolesControls2">
-    </div>
     
-  </div>
-  
-  <button mat-fab extended type="submit" (click)="addEmployee()" [disabled]="!employeeForm.valid">
-    <mat-icon>save</mat-icon>
-    Save
-  </button>
+    
+
+      <mat-label>Gender</mat-label>
+      <mat-radio-group formControlName="gender">
+        <mat-radio-button [value]=0>Male</mat-radio-button>
+        <mat-radio-button [value]=1>Female</mat-radio-button>
+      </mat-radio-group>
+
+    <mat-form-field>
+      <mat-label>Birth Date</mat-label>
+      <input matInput type="date" formControlName="dateOfBirth" name="dateOfBirth">
+      <mat-icon matSuffix>event</mat-icon>
+    </mat-form-field>
+    <ng-container *ngIf="employeeForm.controls['dateOfBirth'].errors && employeeForm.controls['dateOfBirth'].touched">
+      <div *ngIf="employeeForm.controls['dateOfBirth'].errors['required']" class="error-message">
+        This field is required
+      </div>
+    </ng-container>
+
+    <mat-form-field>
+      <mat-label>Employment Start Date</mat-label>
+      <input matInput type="date" formControlName="employmentStartDate" name="employmentStartDate">
+      <mat-icon matSuffix>event</mat-icon>
+    </mat-form-field>
+    <ng-container *ngIf="employeeForm.controls['employmentStartDate'].errors && employeeForm.controls['employmentStartDate'].touched">
+      <div *ngIf="employeeForm.controls['employmentStartDate'].errors['required']" class="error-message">
+        This field is required
+      </div>
+    </ng-container>
+
+  </div> 
+
+  <button mat-raised-button color="primary" type="submit" (click)="addEmployee()" [disabled]="!employeeForm.valid">Save</button>
 
 </form>
-<!-- 
-<h1>Employee Form</h1>
 
-<form *ngIf="employeeForm" [formGroup]="employeeForm">
-  <div class="form-container">
-    <mat-label>First Name</mat-label>
-    <input matInput type="text" formControlName="firstName">
-    <div *ngIf="employeeForm.get('firstName').errors?.['required'] && employeeForm.get('firstName').touched" style="color: red;">This field is required</div>
-    <br>
+<div>
+  <h2>Roles</h2>
 
-    <mat-label>Last Name</mat-label>
-    <input matInput type="text" formControlName="lastName">
-    <div *ngIf="employeeForm.get('lastName').errors?.['required'] && employeeForm.get('lastName').touched" style="color: red;">This field is required</div>
-    <br>
-
-    <mat-label>Identification Number</mat-label>
-    <input matInput type="text" formControlName="identificationNumber">
-    <div *ngIf="employeeForm.get('identificationNumber').errors?.['required'] && employeeForm.get('identificationNumber').touched" style="color: red;">This field is required</div>
-    <br>
-
-    <mat-label>Gender</mat-label>
-    <mat-radio-group formControlName="gender">
-      <mat-radio-button [value]="0">Male</mat-radio-button>
-      <mat-radio-button [value]="1">Female</mat-radio-button>
-    </mat-radio-group>
-    <br>
-
-    <mat-label>Birth Date</mat-label>
-    <input type="date" formControlName="dateOfBirth">
-    <div *ngIf="employeeForm.get('dateOfBirth').errors?.['required'] && employeeForm.get('dateOfBirth').touched" style="color: red;">This field is required</div>
-    <br>
-
-    <mat-label>Employment Start Date</mat-label>
-    <input type="date" formControlName="employmentStartDate">
-    <div *ngIf="employeeForm.get('employmentStartDate').errors?.['required'] && employeeForm.get('employmentStartDate').touched" style="color: red;">This field is required</div>
-    <br>
+  <div *ngFor="let myRole of myRoles">
+    {{myRole.role?.roleName}}  {{myRole.entryDate}}
+    <button (click)="removeThisRole(myRole)">remove</button>
   </div>
-   <div formArrayName="roles">
-    <h2>Roles</h2>
-    <div *ngFor="let roleGroup of employeeForm.get('roles').value; let i = index">
-      <div [formGroupName]="i">
-        <input type="checkbox" [formControl]="roleGroup.roleId">{{ getRoleName(roleGroup.roleId) }}
 
-        <input type="date" [formControl]="roleGroup.entryDate" name="rolesControls2">
-        <button type="button" (click)="removeRoleCheckbox(i)">Remove Role</button>
-      </div>
-    </div>
-    <button type="button" (click)="addRoleCheckbox()">+ Add another role</button>
-  </div> -->
-  <!-- <div formArrayName="roles">
-    <h2>Roles</h2>
-    <div *ngFor="let roleGroup of employeeForm.get('roles').value; let i = index">
-      <div [formGroupName]="i">
-        <label>
-          <input type="checkbox" [formControlName]="roleGroup.value.roleId" (change)="toggleDateField(roleGroup.controls.entryDate, $event.target.checked)">
-          {{ getRoleName(roleGroup.value.roleId) }}
-        </label>
-        <input type="date" [formControlName]="'entryDate' + i" [disabled]="!roleGroup.controls.entryDateEnabled">
-        <button type="button" (click)="removeRoleCheckbox(i)">Remove Role</button>
-      </div>
+  <div *ngFor="let r of availableRoles; let i=index">
+    {{r.role.roleName}}
+    <button (click)="addThisRole(i)">add</button>
+    <div *ngIf="this.chooseDate[i]==true">
+      <input type="date" [(ngModel)]="this.entryDate">
+      <button (click)="saveThisRole(r,i)" [disabled]="validateStartDate()">save</button>
     </div>
   </div>
-  
-   
-  
-  <button mat-fab extended type="submit" (click)="addEmployee()" [disabled]="!employeeForm.valid">
-    <mat-icon>save</mat-icon>
-    Save
-  </button>
-</form> -->
+</div>

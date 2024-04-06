@@ -18,12 +18,12 @@ namespace Server.Data.Repositories
         }
         public async Task<Employee> AddEmployeeAsync(Employee employee)
         {
-            var emp = await _context.Employees.FirstOrDefaultAsync(emp => emp.IdentificationNumber == employee.IdentificationNumber);
+            var emp = await checkIfExists(employee);
             if (emp != null)
             {
                 return await UpdateEmployeeAsync(emp.Id, employee);
             }
-            employee.Roles=employee.Roles.GroupBy(r=>r.RoleId).Select(g=>g.First()).ToList();
+            employee.Roles = employee.Roles.GroupBy(r => r.RoleId).Select(g => g.First()).ToList();
             employee.Id = 0;
             await _context.Employees.AddAsync(employee);
             await _context.SaveChangesAsync();
@@ -50,9 +50,12 @@ namespace Server.Data.Repositories
         }
         public async Task<Employee> UpdateEmployeeAsync(int id, Employee employee)
         {
-           Employee employeeToUpdate = await _context.Employees
-                .Include(e => e.Roles) // Include related roles
-                .FirstOrDefaultAsync(e => e.Id == id);
+            var emp = await checkIfExists(employee);
+            if (emp != null)
+                id = emp.Id;
+            Employee employeeToUpdate = await _context.Employees
+            .Include(e => e.Roles) // Include related roles
+            .FirstOrDefaultAsync(e => e.Id == id);
 
             if (employeeToUpdate != null)
             {
@@ -76,6 +79,10 @@ namespace Server.Data.Repositories
             return await AddEmployeeAsync(employee); // Employee with the given ID not found
         }
 
+        public async Task<Employee> checkIfExists(Employee employee)
+        {
+            return await _context.Employees.FirstOrDefaultAsync(emp => emp.IdentificationNumber == employee.IdentificationNumber);
 
+        }
     }
 }
