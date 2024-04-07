@@ -5,7 +5,8 @@
             <input matInput type="text" placeholder="User Name" formControlName="userName">
             <mat-icon matSuffix>person</mat-icon>
         </mat-form-field>
-        <ng-container *ngIf="registerForm.controls['userName'].errors && registerForm.controls['userName'].touched" class="error-message">
+        <ng-container *ngIf="registerForm.controls['userName'].errors && registerForm.controls['userName'].touched"
+            class="error-message">
             <div *ngIf="!registerForm.controls['userName'].errors['required'] && !registerForm.controls['userName'].errors['minLength']"
                 style="color: red;">
                 You must enter at least 3 characters
@@ -31,6 +32,7 @@
                 This field is required
             </div>
         </ng-container>
+
         <mat-form-field>
             <mat-label>User Address</mat-label>
             <input matInput type="text" placeholder="address" formControlName="address">
@@ -41,7 +43,7 @@
                 This field is required
             </div>
         </ng-container>
-        <br>
+
         <mat-form-field>
             <mat-label>User Email</mat-label>
             <input matInput type="email" placeholder="email" formControlName="email">
@@ -57,9 +59,9 @@
             </div>
         </ng-container>
 
-        <button mat-raised-button color="primary" type="submit" [disabled]="!registerForm.valid" (click)="registerUser()">
+        <button mat-raised-button color="primary" type="submit" [disabled]="!registerForm.valid"
+            (click)="registerNewUser()">
             <mat-icon>login</mat-icon>
             Register</button>
     </form>
 </div>
-

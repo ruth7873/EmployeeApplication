@@ -6,9 +6,7 @@ import { provideClientHydration } from '@angular/platform-browser';
 import { provideHttpClient } from '@angular/common/http';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes), provideClientHydration(),provideAnimations(),    provideHttpClient(), // כאן הוספת withFetch()
-]
+  providers: [provideRouter(routes), provideClientHydration(),provideAnimations(),    provideHttpClient(),AppService]
 };
 import { provideAnimations } from '@angular/platform-browser/animations';
-
-
+import { AppService } from './app.service';

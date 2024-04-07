@@ -3,9 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterModule, RouterOutlet } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { EmployeeModule } from './modules/employee/employee.module';
-import { EmployeeRoutingModule } from './modules/employee/employee-routing.module';
 import { MatIconModule } from '@angular/material/icon';
-
 
 @Component({
   selector: 'app-root',
@@ -18,11 +16,11 @@ export class AppComponent implements OnInit {
   title = 'EmployeesApplication';
   isUserLoggedIn: boolean = false;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
     this.router.events.subscribe(() => {
-      this.isUserLoggedIn = !!sessionStorage.getItem("token"); // בדיקה האם יש טוקן בסשן סטוראג'
+      this.isUserLoggedIn = !!sessionStorage.getItem("token");
     });
   }
 }

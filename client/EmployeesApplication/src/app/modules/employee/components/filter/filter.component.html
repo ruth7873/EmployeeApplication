@@ -1,0 +1,13 @@
+<div class="filter-container">
+    <input matInput type="text" placeholder="Search by name" [(ngModel)]="inputToFilter" (input)="filter()" />
+    <mat-icon class="search-icon">search</mat-icon>
+  </div>
+  <div class="filter-container">
+    <mat-radio-group (change)="onSelectionChange($event)">
+      <mat-radio-button [value]="null">Cancel</mat-radio-button>
+      <mat-radio-button [value]="0">
+        <mat-icon>{{"Male" | genderIcon }}</mat-icon></mat-radio-button>
+      <mat-radio-button [value]="1">
+        <mat-icon>{{"Female" | genderIcon}}</mat-icon></mat-radio-button>
+    </mat-radio-group>
+  </div>

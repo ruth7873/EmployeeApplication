@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import Swal from 'sweetalert2';
+import { AppService } from '../../../app.service';
 
 @Component({
   selector: 'app-logout',
@@ -11,30 +11,16 @@ import Swal from 'sweetalert2';
 })
 
 export class LogoutComponent implements OnInit {
-  constructor(private router:Router){
-
-  }
+  constructor(private router: Router, private _appServics: AppService) { }
   ngOnInit(): void {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, log out!"
-    }).then((result) => {
+    this._appServics.printAlert("Are you sure?", "You won't be able to revert this!", "warning", null, true, true, "Yes, log out!", "No!!").then((result) => {
       if (result.isConfirmed) {
         sessionStorage.removeItem("token")
         this.router.navigate(['/user/login'])
-        Swal.fire({
-          title: "Goodbye!",
-          text: "You successfully logged out!!!",
-          icon: "success"
-        });
+        this._appServics.printAlert("Goodbye!", "You successfully logged out!!!", "success", 2000, false, false, "", "");
       }
       else
-      this.router.navigate(['employee/allEmployees'])
+        this.router.navigate(['employee/allEmployees'])
     });
   }
 }
