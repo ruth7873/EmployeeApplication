@@ -12,7 +12,8 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
   styleUrl: './show-employee.component.scss'
 })
 export class ShowEmployeeComponent{
-  constructor(@Inject(MAT_DIALOG_DATA) public employee : any,private dialogRef: MatDialogRef<ShowEmployeeComponent>){}
+  constructor(@Inject(MAT_DIALOG_DATA) public employee : any,private dialogRef: MatDialogRef<ShowEmployeeComponent>){    
+  }
 
 genders=Gender;
 closeDialog() {

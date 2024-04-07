@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Server.Core.Entities;
 using System;
 using System.Collections.Generic;
@@ -10,13 +11,21 @@ namespace Server.Data
 {
     public class DataContext : DbContext
     {
+        private readonly IConfiguration _configuration;
+
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Role> Roles { get; set; }
-        public DbSet<User>Users { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DataContext(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=employees_db");
+            optionsBuilder.UseSqlServer(_configuration["DbConnectionString"]);
+
+            //optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=employees_db");
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -27,6 +36,7 @@ namespace Server.Data
        .ValueGeneratedOnAdd();
 
         }
+
 
     }
 

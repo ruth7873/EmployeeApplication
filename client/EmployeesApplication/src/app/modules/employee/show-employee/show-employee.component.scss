@@ -22,4 +22,38 @@
   .example-card-actions button {
     margin-left: 8px;
   }
+  .roles-list ul {
+    list-style-type: none; /* בטל את הרשימה */
+    padding: 0; /* הסר את הריווחים האוטומטיים מסביב לרשימה */
+  }
+  
+  .roles-list ul li {
+    margin-bottom: 10px; /* הוסף ריווח בין הפריטים */
+  }
+  .roles-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .role-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  
+  .role-icon {
+    margin-right: 8px;
+    color: #757575; /* צבע כבר */
+  }
+  
+  .role-details {
+    flex-grow: 1;
+    color: #333; /* צבע טקסט */
+  }
+  
+  .management-icon {
+    font-size: 20px;
+    color: #4CAF50; /* צבע ירוק */
+    margin-left: 8px;
+  }
   

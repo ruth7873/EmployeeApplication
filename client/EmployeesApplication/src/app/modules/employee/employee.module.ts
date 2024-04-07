@@ -21,9 +21,12 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDialogActions } from "@angular/material/dialog";
 import { LoginService } from "../login/login.service";
 import { MatMomentDateModule } from "@angular/material-moment-adapter";
+import { AddRoleComponent } from "./add-role/add-role.component";
+import { PipeIconGender } from "./PipeIconGender";
+import { PipeIconManagement } from "./PipeIconManagement";
 
 @NgModule({
-    declarations: [AddEmployeeComponent, AllEmployeesComponent, ShowEmployeeComponent],
+    declarations: [AddEmployeeComponent, AllEmployeesComponent, ShowEmployeeComponent,AddRoleComponent,PipeIconGender,PipeIconManagement],
     imports: [EmployeeRoutingModule,MatDialogActions, HttpClientModule, CommonModule, ReactiveFormsModule, FormsModule, MatFormFieldModule, MatIconModule, MatDatepickerModule, MatNativeDateModule, MatRadioModule, MatCardModule, MatButtonModule, MatInputModule, MatSelectModule, MatGridListModule,MatMomentDateModule ],
     providers: [EmployeeService, RoleService,LoginService],
     exports: [AddEmployeeComponent]

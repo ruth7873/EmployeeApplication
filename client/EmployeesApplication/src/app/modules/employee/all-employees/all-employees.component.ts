@@ -10,7 +10,7 @@ import { MatRadioChange } from '@angular/material/radio';
 import { ShowEmployeeComponent } from '../show-employee/show-employee.component';
 import { RoleService } from '../role.service';
 import { Role } from '../role.model';
-import { AddRoleComponent } from '../../../add-role/add-role.component';
+import { AddRoleComponent } from '../add-role/add-role.component';
 @Component({
   selector: 'app-all-employees',
   // standalone: true,
@@ -22,18 +22,25 @@ export class AllEmployeesComponent implements OnInit {
   selectedValue: any;
   dataFetched: boolean; // Flag to track if data has been fetched
   newEmployee: Employee = new Employee();
+  employees: Employee[];
+  employees2: Employee[];
+  allRoles: Role[] = [];
   onSelectionChange(event: MatRadioChange) {
     this.selectedValue = event.value;
     console.log('Selected value:', this.selectedValue);
     this.filter()
   }
   filter() {
-    console.log(this.selectedValue);
-    console.log(this.employees2[0].gender == this.selectedValue);
+    const searchTerm = this.inputToFilter.toLowerCase();
+    this.employees = this.employees2.filter(emp => 
+      (this.selectedValue == undefined || emp.gender == this.selectedValue) &&
+      (emp.firstName.includes(this.inputToFilter) || 
+       emp.lastName.includes(this.inputToFilter) || 
+       emp.identificationNumber.includes(this.inputToFilter) ||
+       emp.gender.toString().includes(this.inputToFilter) ||
+       emp.roles.some(r => r.role.roleName.toLowerCase().includes(searchTerm)))
+  );
 
-    this.employees = this.employees2.filter(emp => (this.selectedValue == undefined || emp.gender == this.selectedValue) && (emp.firstName.includes(this.inputToFilter) || emp.lastName.includes(this.inputToFilter) || emp.identificationNumber.includes(this.inputToFilter)
-      || emp.gender.toString().includes(this.inputToFilter))
-    )
   }
   inputToFilter: string = '';
   exportToExcel(): void {
@@ -79,7 +86,7 @@ export class AllEmployeesComponent implements OnInit {
     console.log("22", this.allRoles);
 
     const dialogRef = this.dialog.open(AddEmployeeComponent, {
-      width: '600px',
+      width: '800px',
       data:
       {
         emp: emp,
@@ -91,11 +98,11 @@ export class AllEmployeesComponent implements OnInit {
       if (result) {
         console.log("result", result);
         if (emp.firstName != null) {
-          this._employeeService.updateEmployee(result).subscribe(() => this.printAlert("employee","updated"))
+          this._employeeService.updateEmployee(result).subscribe(() => this.printAlert("Employee", "updated"))
         }
         else {
 
-          this._employeeService.addEmployee(result).subscribe(d => this.printAlert("employee","added"), error => {
+          this._employeeService.addEmployee(result).subscribe(d => this.printAlert("Employee", "added"), error => {
             console.log(error);
             Swal.fire({
               title: "Error",
@@ -109,16 +116,18 @@ export class AllEmployeesComponent implements OnInit {
       }
     });
   }
-  printAlert(str: string) {
+  printAlert(str: string, str2: string) {
     {
       Swal.fire({
         title: "Success",
-        text: `Employee ${str} successfully`,
+        text: `${str} ${str2} successfully`,
         icon: "success",
         confirmButtonText: "OK",
       }).then(() => {
-        this._employeeService.getEmployees().subscribe(d => this.employees = d)
-        // this.router.navigate(["/employee/allEmployees"]);
+        if (str == "Employee")
+          this._employeeService.getEmployees().subscribe(d => this.employees = d)
+        else
+          this._roleService.getRoles().subscribe(d => this.allRoles = d)
       });
     }
   }
@@ -128,7 +137,7 @@ export class AllEmployeesComponent implements OnInit {
       data: emp
     });
   }
-  addRole(){
+  addRole() {
     const dialogRef = this.dialog.open(AddRoleComponent, {
       width: '600px',
     });
@@ -136,22 +145,18 @@ export class AllEmployeesComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         console.log("result", result);
-          this._roleService.addRole(result).subscribe(() => this.printAlert("role","added"))
+        this._roleService.addRole(result).subscribe(() => this.printAlert("Role", "added"))
         // Perform actions based on the result of the modal (e.g., save changes)
       }
     });
   }
-
-  employees: Employee[];
-  employees2: Employee[];
-  allRoles: Role[] = [];
-  token: string;
+  // token: string;
   constructor(private _employeeService: EmployeeService, private _roleService: RoleService, private _router: Router, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     if (!this.dataFetched) { // Fetch data only if not already fetched
       console.log("aaaaaaaaaaaaaaaaaa");
-      
+
       this._employeeService.getEmployees().subscribe(
         d => {
           this.employees = d;

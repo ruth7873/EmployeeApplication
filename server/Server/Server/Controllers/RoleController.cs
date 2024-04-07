@@ -49,6 +49,12 @@ namespace Server.API.Controllers
             var newRole = await _roleService.GetRoleByIdAsync(addedRole.Id);
             return Ok(newRole);
         }
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            _roleService.DeleteRoleAsync(id);
+            return Ok();
+        }
 
     }
 }

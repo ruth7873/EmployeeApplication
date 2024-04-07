@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Server.API.Model;
+using Server.Core.Entities;
+using Server.Data;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -14,16 +17,21 @@ namespace Server.API.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IConfiguration _configuration;
+        private readonly DataContext _context;
 
-        public AuthController(IConfiguration configuration)
+        public AuthController(IConfiguration configuration,DataContext context)
         {
             _configuration = configuration;
+            _context = context;
         }
 
         [HttpPost]
-        public IActionResult Login([FromBody] UserPostModel loginModel)
+        public IActionResult Login([FromBody] LoginModel loginModel)
         {
-            if (loginModel.UserName == "ruth" && loginModel.Password == "123456")
+            var user = _context.Users.FirstOrDefault(u => u.UserName == loginModel.UserName);
+
+
+            if (user!=null &&user.Password==loginModel.Password)
             {
                 var claims = new List<Claim>()
             {

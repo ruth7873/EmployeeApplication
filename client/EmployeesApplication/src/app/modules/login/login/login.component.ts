@@ -23,12 +23,11 @@ export class LoginComponent {
       password: new FormControl(this.user.password, [Validators.required, Validators.minLength(3)]),
     })
   }
-  login() {
+  login() {   
     this.user = this.userForm.value;
     this._loginService.login(this.user).subscribe(d => {
       if (typeof (window) !== undefined)
         sessionStorage.setItem("token", "Bearer " + d.token);
-      console.log(d)
       if (d) {
         Swal.fire({
           title: `Welcome! ${this.user.userName}`,
@@ -37,10 +36,22 @@ export class LoginComponent {
         });
         this._router.navigate(["employee/allEmployees"]);
       }
-    })
+    }
+      , error => {
+        console.log(error);
+          Swal.fire({
+            titleText: "Register now!",
+            text: "You are not registered in the system yet",
+            timer: 2500,
+            timerProgressBar: true,
+            showConfirmButton: false,
+            icon: "error",
+          });
+          this._router.navigate(["user/register"], { state: { user: this.user } });
+        }
+    )
   }
 }
-
 
 
 

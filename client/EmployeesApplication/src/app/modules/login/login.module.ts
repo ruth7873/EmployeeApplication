@@ -8,9 +8,10 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
 import { LoginRoutingModule } from "./login-routing.module";
+import { RegisterComponent } from "./register/register.component";
 
 @NgModule({
-    declarations: [LoginComponent],
+    declarations: [LoginComponent,RegisterComponent],
     imports:[FormsModule,ReactiveFormsModule,LoginRoutingModule,HttpClientModule,CommonModule,MatFormFieldModule,MatIconModule,MatInputModule],
     providers: [LoginService],
     exports: [LoginComponent]

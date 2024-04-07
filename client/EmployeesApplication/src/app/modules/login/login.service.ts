@@ -7,11 +7,14 @@ import { User } from "./user.model";
 @Injectable()
 export class LoginService{
 
-    private apiUrl = 'https://localhost:7020/api/Auth'; // Replace this with your API URL
+    private apiUrl = 'https://localhost:7020/api'; // Replace this with your API URL
 
   constructor(private http: HttpClient) { }
 
   login(user:User): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}`, user);
+    return this.http.post<any>(`${this.apiUrl}/Auth`, user);
+  }
+  register(user:User): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/Users`, user);
   }
 }

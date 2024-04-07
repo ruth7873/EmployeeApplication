@@ -26,12 +26,15 @@ namespace Server.Data.Repositories
             return role;
         }
 
-        //public async Task<Role> AddRoleAsync(Role role)
-        //{
-        //    _context.Roles.Add(role);
-        //    await _context.SaveChangesAsync();
-        //    return role;
-        //}
+        public void DeleteRole(int id)
+        {
+            var role = _context.Roles.Find(id);
+            if (role != null)
+            {
+                _context.Roles.Remove(role);
+                _context.SaveChanges();
+            }
+        }
 
         public async Task<Role> GetRoleByIdAsync(int id)
         {

@@ -50,7 +50,6 @@ namespace Server.API.Controllers
             var userToAdd = _mapper.Map<User>(user);
             var addedUser = await _userService.AddUserAsync(userToAdd);
             return Ok(addedUser);
-        
         }
 
         // PUT api/<UsersController>/5

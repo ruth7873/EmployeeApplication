@@ -18,14 +18,22 @@ namespace Server.Service
         }
         public async Task<Role> AddRoleAsync(Role role)
         {
-            return await _roleRepository.AddRoleAsync(role);       }
+            return await _roleRepository.AddRoleAsync(role);
+        }
 
         public async Task<Role> GetRoleByIdAsync(int id)
         {
-            return await _roleRepository.GetRoleByIdAsync(id);        }
+            return await _roleRepository.GetRoleByIdAsync(id);
+        }
 
         public async Task<IEnumerable<Role>> GetRolesAsync()
         {
-            return await _roleRepository.GetRolesAsync();        }
+            return await _roleRepository.GetRolesAsync();
+        }
+        public void DeleteRoleAsync(int id)
+        {
+            _roleRepository.DeleteRole(id);
+        }
+
     }
 }

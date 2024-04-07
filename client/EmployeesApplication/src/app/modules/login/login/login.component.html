@@ -5,14 +5,15 @@
             <input matInput type="text" placeholder="User Name" formControlName="userName">
             <mat-icon matSuffix>person</mat-icon>
         </mat-form-field>
-        <div *ngIf="userForm.controls['userName'].errors && userForm.controls['userName'].touched" class="error-message">
-            <div *ngIf="!userForm.controls['userName'].errors['required'] && !userForm.controls['userName'].errors['minlength']">
+        <ng-container *ngIf="userForm.controls['userName'].errors && userForm.controls['userName'].touched" class="error-message">
+            <div *ngIf="!userForm.controls['userName'].errors['required'] && !userForm.controls['userName'].errors['minLength']"
+                style="color: red;">
                 You must enter at least 3 characters
             </div>
-            <div *ngIf="userForm.controls['userName'].errors['required']">
+            <div *ngIf="userForm.controls['userName'].errors['required']" style="color: red;">
                 This field is required
             </div>
-        </div>
+        </ng-container>
 
         <mat-form-field>
             <mat-label>Password</mat-label>
@@ -21,17 +22,17 @@
                 {{hide ? 'visibility_off' : 'visibility'}}
             </mat-icon>
         </mat-form-field>
-        <div *ngIf="userForm.controls['password'].errors && userForm.controls['password'].touched" class="error-message">
-            <div *ngIf="!userForm.controls['password'].errors['required'] && !userForm.controls['password'].errors['minlength']">
+        <ng-container *ngIf="userForm.controls['password'].errors && userForm.controls['password'].touched">
+            <div *ngIf="!userForm.controls['password'].errors['required'] && !userForm.controls['password'].errors['minLength']"
+                style="color: red;">
                 You must enter at least 3 characters
             </div>
-            <div *ngIf="userForm.controls['password'].errors['required']">
+            <div *ngIf="userForm.controls['password'].errors['required']" style="color: red;">
                 This field is required
             </div>
-        </div>
-
+        </ng-container>
         <button mat-raised-button color="primary" type="submit" [disabled]="!userForm.valid" (click)="login()">
             <mat-icon>login</mat-icon>
-            Register</button>
+            Login</button>
     </form>
 </div>

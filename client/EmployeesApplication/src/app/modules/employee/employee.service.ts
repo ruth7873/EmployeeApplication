@@ -29,18 +29,12 @@ export class EmployeeService {
             // Handle the case when sessionStorage is not available
         }
 
-        // if (typeof (window) !== undefined)
-        //     this.token = sessionStorage?.getItem("token")
-        // else
-        //     console.log("error2");
-
+  
         
     }
   
     getEmployees(): Observable<Employee[]> {
-        this.init()
-        console.log("aaaaa", this.headers);
-        
+        this.init()        
         return this._http.get<Employee[]>(`${this.apiUrl}`, { "headers": this.headers });
     }
 
