@@ -47,7 +47,9 @@ export class RegisterComponent {
         else {
           this._appService.printAlert(`Hi ${this.user?.userName}`, "You have successfully registered!!!", "success", 2000, false, false, "", "");
           this._loginService.login(this.user).subscribe(d => {
-            sessionStorage.setItem("token", "Bearer " + d.token);
+            if (typeof sessionStorage !== 'undefined') {
+              sessionStorage.setItem("token", "Bearer " + d.token);
+            } 
             this.router.navigate(["employee/allEmployees"])
           })
         }

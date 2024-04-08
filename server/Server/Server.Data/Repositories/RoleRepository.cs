@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Server.Core.Entities;
 using Server.Core.Repositories;
 using System;
@@ -20,7 +21,11 @@ namespace Server.Data.Repositories
         {
             // Make sure the ID is not explicitly set
             role.Id = 0; // Or whatever default value your entity framework expects for identity insert
-
+            var r = await _context.Roles.FirstOrDefaultAsync(r => r.RoleName.Equals(role.RoleName));
+            if (r != null)
+            {
+                return null;
+            }
             _context.Roles.Add(role);
             await _context.SaveChangesAsync();
             return role;
@@ -38,10 +43,12 @@ namespace Server.Data.Repositories
 
         public async Task<Role> GetRoleByIdAsync(int id)
         {
-            return await _context.Roles.FindAsync(id);        }
+            return await _context.Roles.FindAsync(id);
+        }
 
         public async Task<IEnumerable<Role>> GetRolesAsync()
         {
-            return await _context.Roles.ToListAsync();        }
+            return await _context.Roles.ToListAsync();
+        }
     }
 }

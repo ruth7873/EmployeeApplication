@@ -23,7 +23,8 @@ export class LoginComponent {
   login() {
     this.user = this.userForm.value;
     this._loginService.login(this.user).subscribe(d => {
-      if (typeof (window) !== undefined)
+      
+      if (typeof (window) !== undefined&&typeof sessionStorage !== 'undefined')
         sessionStorage.setItem("token", "Bearer " + d.token);
       if (d) {
         this._appService.printAlert(`Welcome! ${this.user.userName}`, "You've logged in successfully!", "success", 2000, false, false, "", "");

@@ -28,8 +28,8 @@ namespace Server.API.Controllers
         [HttpPost]
         public IActionResult Login([FromBody] LoginModel loginModel)
         {
-            var user = _context.Users.FirstOrDefault(u => u.UserName == loginModel.UserName);
 
+            var user = _context.Users.FirstOrDefault(u => u.UserName == loginModel.UserName);
 
             if (user!=null &&user.Password==loginModel.Password)
             {

@@ -11,18 +11,18 @@ namespace Server.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RoleController : ControllerBase
+    public class RolesController : ControllerBase
     {
         private readonly IRoleService _roleService;
         private readonly IMapper _mapper;
 
-        public RoleController(IRoleService roleService,IMapper mapper)
+        public RolesController(IRoleService roleService,IMapper mapper)
         {
             _roleService = roleService;
             _mapper = mapper;
         }
 
-        // GET: api/<RoleController>
+        // GET: api/<RolesController>
         [HttpGet]
         public async Task<IActionResult> Get()
         {
@@ -30,7 +30,7 @@ namespace Server.API.Controllers
             return Ok(roles);
         }
 
-        // GET api/<RoleController>/5
+        // GET api/<RolesController>/5
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
@@ -40,12 +40,16 @@ namespace Server.API.Controllers
             return Ok(role);
         }
 
-        // POST api/<RoleController>
+        // POST api/<RolesController>
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] RolePostModel role)
         {
             var RoleToAdd = _mapper.Map<Role>(role);
             var addedRole = await _roleService.AddRoleAsync(RoleToAdd);
+            if(addedRole==null)
+            {
+                return BadRequest("This role already exists!! Enter another role");
+            }
             var newRole = await _roleService.GetRoleByIdAsync(addedRole.Id);
             return Ok(newRole);
         }

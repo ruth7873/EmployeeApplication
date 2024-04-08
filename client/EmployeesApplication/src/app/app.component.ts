@@ -19,8 +19,12 @@ export class AppComponent implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit(): void {
-    this.router.events.subscribe(() => {
-      this.isUserLoggedIn = !!sessionStorage.getItem("token");
-    });
+    if (typeof sessionStorage !== 'undefined') {
+
+      this.router.events.subscribe(() => {
+        this.isUserLoggedIn = !!sessionStorage.getItem("token");
+      });
+    } 
+
   }
 }

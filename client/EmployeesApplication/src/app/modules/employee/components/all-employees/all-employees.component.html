@@ -6,8 +6,8 @@
     <mat-icon>work</mat-icon> Add Role
   </button>
   <button mat-button (click)="exportToExcel()"> <mat-icon>cloud_download</mat-icon> Export to Excel </button>
-  <app-filter></app-filter>
-  <!-- <div class="filter-container">
+  <!-- <app-filter></app-filter> -->
+  <div class="filter-container">
     <input matInput type="text" placeholder="Search by name" [(ngModel)]="inputToFilter" (input)="filter()" />
     <mat-icon class="search-icon">search</mat-icon>
   </div>
@@ -19,7 +19,7 @@
       <mat-radio-button [value]="1">
         <mat-icon>{{"Female" | genderIcon}}</mat-icon></mat-radio-button>
     </mat-radio-group>
-  </div> -->
+  </div>
 
 </div>
 

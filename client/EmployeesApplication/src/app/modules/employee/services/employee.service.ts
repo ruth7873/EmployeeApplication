@@ -8,7 +8,7 @@ import { AppService } from "../../../app.service";
 @Injectable()
 export class EmployeeService {
     constructor(private _http: HttpClient, private _router: Router, private _appService: AppService) { }
-    private apiUrl = 'https://localhost:7020/api/Employee';
+    private apiUrl = 'https://localhost:7020/api/Employees';
     token: any;
     headers: any;
     authorization() {

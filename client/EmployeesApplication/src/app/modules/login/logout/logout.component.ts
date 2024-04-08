@@ -15,7 +15,9 @@ export class LogoutComponent implements OnInit {
   ngOnInit(): void {
     this._appServics.printAlert("Are you sure?", "You won't be able to revert this!", "warning", null, true, true, "Yes, log out!", "No!!").then((result) => {
       if (result.isConfirmed) {
-        sessionStorage.removeItem("token")
+        if (typeof sessionStorage !== 'undefined') {
+          sessionStorage.removeItem("token")
+        } 
         this.router.navigate(['/user/login'])
         this._appServics.printAlert("Goodbye!", "You successfully logged out!!!", "success", 2000, false, false, "", "");
       }

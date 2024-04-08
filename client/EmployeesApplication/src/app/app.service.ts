@@ -25,18 +25,13 @@ export class AppService {
     }
 
     getAllEmployees() {
-        console.log(this.employees);
         return this.employees;
     }
     setEmployees(employees: Employee[]) {
-        this.employees = employees;
-        console.log(this.employees);
-        
+        this.employees = employees;        
     }
 
-    filterEmployees(selectedValue: any, inputToFilter: string): Employee[] {
-        console.log(selectedValue);
-        
+    filterEmployees(selectedValue: any, inputToFilter: string): Employee[] {        
         const searchTerm = inputToFilter.toLowerCase();
         this.employees= this.employees?.filter(emp =>
             (selectedValue == undefined || emp.gender == selectedValue) &&

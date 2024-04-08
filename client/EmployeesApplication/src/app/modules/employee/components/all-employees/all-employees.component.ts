@@ -11,6 +11,7 @@ import { RoleService } from '../../services/role.service';
 import { Role } from '../../models/role.model';
 import { AddRoleComponent } from '../add-role/add-role.component';
 import { AppService } from '../../../../app.service';
+import { error } from 'console';
 @Component({
   selector: 'app-all-employees',
   templateUrl: './all-employees.component.html',
@@ -21,24 +22,24 @@ export class AllEmployeesComponent implements OnInit {
   employees: Employee[];
   employees2: Employee[];
   allRoles: Role[] = [];
-  // selectedValue: any;
-  // inputToFilter: string = '';
-  // onSelectionChange(event: MatRadioChange) {
-  //   this.selectedValue = event.value;
-  //   this.filter()
-  // }
-  // filter() {
-  //   const searchTerm = this.inputToFilter.toLowerCase();
-  //   this.employees = this.employees2.filter(emp =>
-  //     (this.selectedValue == undefined || emp.gender == this.selectedValue) &&
-  //     (emp.firstName.includes(this.inputToFilter) ||
-  //       emp.lastName.includes(this.inputToFilter) ||
-  //       emp.identificationNumber.includes(this.inputToFilter) ||
-  //       emp.gender.toString().includes(this.inputToFilter) ||
-  //       emp.roles.some(r => r.role.roleName.toLowerCase().includes(searchTerm)))
-  //   );
+  selectedValue: any;
+  inputToFilter: string = '';
+  onSelectionChange(event: MatRadioChange) {
+    this.selectedValue = event.value;
+    this.filter()
+  }
+  filter() {
+    const searchTerm = this.inputToFilter.toLowerCase();
+    this.employees = this.employees2.filter(emp =>
+      (this.selectedValue == undefined || emp.gender == this.selectedValue) &&
+      (emp.firstName.includes(this.inputToFilter) ||
+        emp.lastName.includes(this.inputToFilter) ||
+        emp.identificationNumber.includes(this.inputToFilter) ||
+        emp.gender.toString().includes(this.inputToFilter) ||
+        emp.roles.some(r => r.role.roleName.toLowerCase().includes(searchTerm)))
+    );
 
-  // }
+  }
   exportToExcel(): void {
     const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.employees);
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
@@ -70,11 +71,17 @@ export class AllEmployeesComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         if (emp.firstName != null) {
-          this._employeeService.updateEmployee(result).subscribe(() => this.printAlert("Employee", "updated"))
+
+          this._employeeService.updateEmployee(result).subscribe(() => this.printAlert("Employee", "updated"), error => {
+            let message = this.errorMessage(error)
+            this._appService.printAlert("Error", message.slice(0, message.indexOf(".")), "error", 3000, false, false, "", "")
+          })
         }
         else {
           this._employeeService.addEmployee(result).subscribe(d => this.printAlert("Employee", "added")
             , error => {
+              let message = this.errorMessage(error)
+              this._appService.printAlert("Error", message.slice(0, message.indexOf(".")), "error", 3000, false, false, "", "")
               this._appService.printAlert("Error", error.message, "error", 2000, false, false, "", "")
 
             })
@@ -82,6 +89,15 @@ export class AllEmployeesComponent implements OnInit {
       }
     })
 
+  }
+  errorMessage(error: any): string {
+    // מחרוזת המכילה את ההודעה המלאה של השגיאה
+    const errorMessage = error.error;
+    // מציאת המיקום של התו ":" במחרוזת
+    const colonIndex = errorMessage.indexOf(":");
+    // חיתוך המחרוזת מאחרי התו ":"
+    const errorMessageShort = errorMessage.substring(colonIndex + 1);
+    return errorMessageShort;
   }
   printAlert(str: string, str2: string) {
     {
@@ -106,7 +122,10 @@ export class AllEmployeesComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this._roleService.addRole(result).subscribe(() => this.printAlert("Role", "added"))
+        this._roleService.addRole(result).subscribe(() => this.printAlert("Role", "added"), error => {
+          // console.log(error.error);
+          ; this._appService.printAlert("Error!", error.error, "error", 2000, false, false, "", "")
+        })
       }
     });
   }
@@ -122,21 +141,21 @@ export class AllEmployeesComponent implements OnInit {
         if (error.status === 401) {
           this._appService.printAlert(`Unauthorized error!!!`, "You are not authorized to access this resource", "error", 2000, false, false, "", "");
           this._router.navigate(["/user/login"])
-        } else {
-          console.error("An unexpected error occurred:");
         }
       }
     );
-    this._roleService.getRoles().subscribe(data => {
-      this.allRoles = data;
-    });
-    this._appService.setEmployees(this.employees)
-    this.employees = this._appService.getAllEmployees();
+    if (this.allRoles.length === 0) {
+      this._roleService.getRoles().subscribe(
+        data => {
+          this.allRoles = data;
+        },
+        error => {
+        }
+      );
+    }
+    
+    // this._appService.setEmployees(this.employees)
+    // this.employees = this._appService.getAllEmployees();
   }
 
-  
-  
-    
-  
-  
 }
