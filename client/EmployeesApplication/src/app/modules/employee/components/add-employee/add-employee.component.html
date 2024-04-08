@@ -1,3 +1,5 @@
+<!-- <button mat-raised-button color="warn" (click)="closeDialog()">Cancel</button> -->
+
 <div>
   <form *ngIf="employeeForm" [formGroup]="employeeForm" class="employee-form">
     <div class="form-container">
@@ -145,10 +147,15 @@
       <button (click)="addThisRole(i)">add</button>
       <div *ngIf="this.chooseDate[i]==true">
         <input type="date" [(ngModel)]="this.entryDate">
-        <button (click)="saveThisRole(r,i)" [disabled]="validateStartDate">save</button>
+        <button (click)="saveThisRole(r,i)" [disabled]="!validateStartDate">save</button>
       </div>
     </div>
   </div>
+
+  <button mat-button (click)="closeDialog()">
+    <mat-icon>arrow_back</mat-icon>
+    Return
+  </button>
   <!-- <div>
   <h2>Roles</h2>
 

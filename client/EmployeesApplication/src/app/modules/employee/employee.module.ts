@@ -19,17 +19,18 @@ import { RoleService } from "./services/role.service";
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDialogActions } from "@angular/material/dialog";
-import { LoginService } from "../login/login.service";
+import { LoginService } from "../login/services/login.service";
 import { MatMomentDateModule } from "@angular/material-moment-adapter";
 import { AddRoleComponent } from "./components/add-role/add-role.component";
 import { PipeIconGender } from "./pipes/PipeIconGender";
 import { PipeIconManagement } from "./pipes/PipeIconManagement";
 import { FilterComponent } from "./components/filter/filter.component";
 import { AppService } from "../../app.service";
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
     declarations: [AddEmployeeComponent, AllEmployeesComponent, ShowEmployeeComponent, AddRoleComponent, PipeIconGender, PipeIconManagement,FilterComponent],
-    imports: [EmployeeRoutingModule, MatDialogActions, HttpClientModule, CommonModule, ReactiveFormsModule, FormsModule, MatFormFieldModule, MatIconModule, MatDatepickerModule, MatNativeDateModule, MatRadioModule, MatCardModule, MatButtonModule, MatInputModule, MatSelectModule, MatGridListModule, MatMomentDateModule],
+    imports: [EmployeeRoutingModule, MatDialogActions, HttpClientModule, CommonModule, ReactiveFormsModule, FormsModule, MatFormFieldModule, MatIconModule, MatDatepickerModule, MatNativeDateModule, MatRadioModule, MatCardModule, MatButtonModule, MatInputModule, MatSelectModule, MatGridListModule, MatMomentDateModule,MatPaginatorModule],
     providers: [EmployeeService, RoleService, LoginService,AppService],
     exports: [AddEmployeeComponent]
 })

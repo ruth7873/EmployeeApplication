@@ -10,6 +10,6 @@ namespace Server.Core.DTOs
     public class EmployeeRoleDTO
     {
         public Role Role { get; set; }
-        public DateTime EntryDate { get; set; } // תאריך כניסה לתפקיד
+        public DateOnly EntryDate { get; set; } // תאריך כניסה לתפקיד
     }
 }

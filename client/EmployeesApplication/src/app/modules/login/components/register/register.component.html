@@ -8,10 +8,10 @@
         <ng-container *ngIf="registerForm.controls['userName'].errors && registerForm.controls['userName'].touched"
             class="error-message">
             <div *ngIf="!registerForm.controls['userName'].errors['required'] && !registerForm.controls['userName'].errors['minLength']"
-                style="color: red;">
+                class="error-message">
                 You must enter at least 3 characters
             </div>
-            <div *ngIf="registerForm.controls['userName'].errors['required']" style="color: red;">
+            <div *ngIf="registerForm.controls['userName'].errors['required']" class="error-message">
                 This field is required
             </div>
         </ng-container>
@@ -25,10 +25,10 @@
         </mat-form-field>
         <ng-container *ngIf="registerForm.controls['password'].errors && registerForm.controls['password'].touched">
             <div *ngIf="!registerForm.controls['password'].errors['required'] && !registerForm.controls['password'].errors['minLength']"
-                style="color: red;">
+                class="error-message">
                 You must enter at least 3 characters
             </div>
-            <div *ngIf="registerForm.controls['password'].errors['required']" style="color: red;">
+            <div *ngIf="registerForm.controls['password'].errors['required']" class="error-message">
                 This field is required
             </div>
         </ng-container>
@@ -39,7 +39,7 @@
             <mat-icon matSuffix>location_on</mat-icon>
         </mat-form-field>
         <ng-container *ngIf="registerForm.controls['address'].errors && registerForm.controls['address'].touched">
-            <div *ngIf="registerForm.controls['address'].errors['required']" style="color: red;">
+            <div *ngIf="registerForm.controls['address'].errors['required']" class="error-message">
                 This field is required
             </div>
         </ng-container>
@@ -50,11 +50,11 @@
             <mat-icon matSuffix>email</mat-icon>
         </mat-form-field>
         <ng-container *ngIf="registerForm.controls['email'].errors && registerForm.controls['email'].touched">
-            <div *ngIf="!registerForm.controls['email'].errors['required']&& registerForm.controls['email'].errors['email']"
-                style="color: red;">
+            <div
+                *ngIf="!registerForm.controls['email'].errors['required']&& registerForm.controls['email'].errors['email']"class="error-message">
                 The email address is invalid
             </div>
-            <div *ngIf="registerForm.controls['email'].errors['required']" style="color: red;">
+            <div *ngIf="registerForm.controls['email'].errors['required']"class="error-message">
                 This field is required
             </div>
         </ng-container>

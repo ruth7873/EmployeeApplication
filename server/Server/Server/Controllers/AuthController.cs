@@ -50,7 +50,8 @@ namespace Server.API.Controllers
                     signingCredentials: signinCredentials
                 );
                 var tokenString = new JwtSecurityTokenHandler().WriteToken(tokeOptions);
-                return Ok(new { Token = tokenString });
+             
+                    return Ok(new { Token = tokenString });
             }
             return Unauthorized();
         }

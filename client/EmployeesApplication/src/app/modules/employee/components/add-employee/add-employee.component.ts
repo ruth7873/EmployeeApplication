@@ -81,7 +81,7 @@
 
 
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Employee } from '../../models/employee.model';
@@ -104,8 +104,9 @@ export class AddEmployeeComponent implements OnInit {
   entryDate: Date = new Date();
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: any, private _dialogRef: MatDialogRef<AddEmployeeComponent>) {
+    @Inject(MAT_DIALOG_DATA) public data: any, private _dialogRef: MatDialogRef<AddEmployeeComponent>, private _formBuilder: FormBuilder) {
     this.employee = data.emp;
+    console.log(this.employee);
 
     data.roles.forEach(element => {
       this.availableRoles.push(new EmployeeRole(element))
@@ -115,8 +116,14 @@ export class AddEmployeeComponent implements OnInit {
     this.allRoles = this.availableRoles;
     this.createEmployeeForm();
   }
+
+  ngOnInit(): void {
+    this.myRoles = this.employee.roles;
+    this.myRoles.forEach(r => this.availableRoles = this.availableRoles.filter(rr => rr.role.id != r.role.id));
+  }
+
   private createEmployeeForm(): void {
-    this.employeeForm = new FormGroup({
+    this.employeeForm = this._formBuilder.group({
       firstName: new FormControl(this.employee?.firstName, [Validators.required]),
       lastName: new FormControl(this.employee?.lastName, [Validators.required]),
       identificationNumber: new FormControl(this.employee?.identificationNumber, [Validators.required, this.israeliIdNumberValidator]),
@@ -124,13 +131,10 @@ export class AddEmployeeComponent implements OnInit {
       dateOfBirth: new FormControl(this.isValidDate(this.employee?.dateOfBirth) ? new Date(this.employee?.dateOfBirth).toISOString().substring(0, 10) : '', [Validators.required, this.validateAge.bind(this)]),
       employmentStartDate: new FormControl(this.isValidDate(this.employee?.employmentStartDate) ? new Date(this.employee?.employmentStartDate).toISOString().substring(0, 10) : '', [Validators.required, this.validateStartDate.bind(this)]),
       status: new FormControl(true),
+      roles: this._formBuilder.array(this.employee?.roles)
     });
   }
 
-  ngOnInit(): void {
-    this.myRoles = this.employee.roles;
-    this.myRoles.forEach(r => this.availableRoles = this.availableRoles.filter(rr => rr.role.id != r.role.id));
-  }
   private israeliIdNumberValidator(control: FormControl): { [key: string]: boolean } | null {
     const id = control.value;
     if (!id || id.length !== 9 || isNaN(id)) {
@@ -149,6 +153,17 @@ export class AddEmployeeComponent implements OnInit {
       return { 'invalidStartDate': true };
     return null;
   }
+  // validateStartDate(): { [key: string]: boolean } | null {
+  //   const employmentStartDate = this.employeeForm?.get('employmentStartDate').value;
+  //   const dateOfBirth = this.employeeForm?.get('dateOfBirth').value;
+
+  //   if (employmentStartDate && dateOfBirth && employmentStartDate <= dateOfBirth) {
+  //     return { 'invalidStartDate': true };
+  //   }
+
+  //   return null;
+  // }
+
   validateAge(control: FormControl): { [key: string]: boolean } | null {
     const birthDate = new Date(control.value);
     const today = new Date();
@@ -164,6 +179,7 @@ export class AddEmployeeComponent implements OnInit {
   }
 
   private isValidDate(value: any): boolean {
+
     const date = new Date(value);
     return !isNaN(date.getTime());
   }
@@ -200,6 +216,8 @@ export class AddEmployeeComponent implements OnInit {
     this.employee.roles = this.myRoles;
     this.myRoles.map(role => role.roleId = role.role.id);
     this._dialogRef.close(this.employee);
-}
-
+  }
+  closeDialog(): void {
+    this._dialogRef.close();
+  }
 }

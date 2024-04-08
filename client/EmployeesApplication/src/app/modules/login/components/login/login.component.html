@@ -7,11 +7,10 @@
         </mat-form-field>
         <ng-container *ngIf="userForm.controls['userName'].errors && userForm.controls['userName'].touched"
             class="error-message">
-            <div *ngIf="!userForm.controls['userName'].errors['required'] && !userForm.controls['userName'].errors['minLength']"
-                style="color: red;">
+            <div *ngIf="!userForm.controls['userName'].errors['required'] && !userForm.controls['userName'].errors['minLength']"class="error-message">
                 You must enter at least 3 characters
             </div>
-            <div *ngIf="userForm.controls['userName'].errors['required']" style="color: red;">
+            <div *ngIf="userForm.controls['userName'].errors['required']"class="error-message">
                 This field is required
             </div>
         </ng-container>
@@ -24,11 +23,10 @@
             </mat-icon>
         </mat-form-field>
         <ng-container *ngIf="userForm.controls['password'].errors && userForm.controls['password'].touched">
-            <div *ngIf="!userForm.controls['password'].errors['required'] && !userForm.controls['password'].errors['minLength']"
-                style="color: red;">
+            <div *ngIf="!userForm.controls['password'].errors['required'] && !userForm.controls['password'].errors['minLength']"class="error-message">
                 You must enter at least 3 characters
             </div>
-            <div *ngIf="userForm.controls['password'].errors['required']" style="color: red;">
+            <div *ngIf="userForm.controls['password'].errors['required']"class="error-message">
                 This field is required
             </div>
         </ng-container>

@@ -1,11 +1,12 @@
+
 <div class="table-header">
-  <button mat-button (click)="editEmployee(newEmployee)">
+  <button mat-button class="bold-button" (click)="editEmployee(newEmployee)">
     <mat-icon>group_add</mat-icon> Add Employee
   </button>
-  <button mat-button (click)="addRole()">
+  <button mat-button class="bold-button" (click)="addRole()">
     <mat-icon>work</mat-icon> Add Role
   </button>
-  <button mat-button (click)="exportToExcel()"> <mat-icon>cloud_download</mat-icon> Export to Excel </button>
+  <button mat-button class="bold-button" (click)="exportToExcel()"> <mat-icon>cloud_download</mat-icon> Export to Excel </button>
   <!-- <app-filter></app-filter> -->
   <div class="filter-container">
     <input matInput type="text" placeholder="Search by name" [(ngModel)]="inputToFilter" (input)="filter()" />
@@ -19,17 +20,10 @@
       <mat-radio-button class="radio-button" [value]="1">
         <mat-icon>{{"Female" | genderIcon}}</mat-icon> Female</mat-radio-button>
     </mat-radio-group>
-    
-    <!-- <mat-radio-group (change)="onSelectionChange($event)">
-      <mat-radio-button [value]="null">Cancel</mat-radio-button>
-      <mat-radio-button [value]="0">
-        <mat-icon>{{"Male" | genderIcon }}</mat-icon></mat-radio-button>
-      <mat-radio-button [value]="1">
-        <mat-icon>{{"Female" | genderIcon}}</mat-icon></mat-radio-button>
-    </mat-radio-group> -->
   </div>
-
 </div>
+
+<mat-paginator [length]="employees?.length" [pageSize]="10" [pageSizeOptions]="[3, 5, 10, 25, 100]" (page)="handlePageChange($event)"></mat-paginator>
 
 <table class="employees-table">
   <thead>
@@ -42,7 +36,7 @@
     </tr>
   </thead>
   <tbody>
-    <ng-container *ngFor="let employee of employees">
+    <ng-container *ngFor="let employee of employees | slice: startIndex: endIndex">
       <tr>
         <td>{{ employee.lastName }}</td>
         <td>{{ employee.firstName }}</td>

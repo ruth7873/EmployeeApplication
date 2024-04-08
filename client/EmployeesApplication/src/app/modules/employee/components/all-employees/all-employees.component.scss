@@ -68,3 +68,68 @@
 .mat-radio-button:last-child {
   margin-right: 0;
 }
+.bold-button {
+  font-weight: bold;
+  background-color: transparent; /* שקיפות רקע */
+  color: #007BFF; /* צבע טקסט */
+  border: 2px solid #007BFF; /* מסגרת עם צבע כחול */
+  border-radius: 5px; /* רינוע עגול */
+  padding: 10px 20px; /* מרווחים */
+  transition: background-color 0.3s, color 0.3s; /* אנימציה */
+}
+
+.bold-button:hover {
+  background-color: #007BFF; /* צביעת רקע בכחול */
+  color: white; /* שינוי צבע טקסט ללבן */
+}
+.mat-paginator {
+  visibility: visible;
+}
+
+.mat-paginator-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* סגירת טבלה כשהמסך קטן יותר */
+@media screen and (max-width: 600px) {
+  .employees-table {
+    overflow-x: auto;
+    display: block;
+  }
+
+  .employees-table thead,
+  .employees-table tbody,
+  .employees-table th,
+  .employees-table td,
+  .employees-table tr {
+    display: block;
+  }
+
+  .employees-table tbody tr {
+    border-bottom: 1px solid #ccc;
+  }
+
+  .employees-table thead {
+    background-color: #f0f0f0;
+  }
+
+  .employees-table th,
+  .employees-table td {
+    padding: 8px;
+    text-align: left;
+    border: none;
+  }
+}
+@media screen and (max-width: 1000px) {
+  .table-header {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .table-header > * {
+    margin: 5px;
+  }
+}
+

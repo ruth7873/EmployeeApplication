@@ -75,7 +75,7 @@ namespace Server.Service
             return weightedDigitsSum % 10 == 0;
         }
 
-        public static bool IsOverAge(DateTime birthDate)
+        public static bool IsOverAge(DateOnly birthDate)
         {
             // חישוב הגיל
             int age = DateTime.Today.Year - birthDate.Year;

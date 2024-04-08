@@ -2,10 +2,10 @@
     <div class="field">
     <mat-form-field>
         <mat-label>Role Name</mat-label>
-        <input matInput type="text" id="roleName" formControlName="roleName">
+        <input matInput type="text" class="roleName" formControlName="roleName">
     </mat-form-field>
     <ng-container *ngIf="roleForm.controls['roleName'].errors && roleForm.controls['roleName'].touched">
-        <div *ngIf="roleForm.controls['roleName'].errors['required']" class="error-message" style="color: red;">
+        <div *ngIf="roleForm.controls['roleName'].errors['required']" class="error-message">
           This field is required
         </div>
       </ng-container>
@@ -13,7 +13,7 @@
     <div class="field">
     <mat-form-field>
         <mat-label>Role Type:</mat-label>
-        <mat-select id="isManagementRole" formControlName="isManagementRole">
+        <mat-select class="isManagementRole" formControlName="isManagementRole">
             <mat-option [value]="true">Management
                 <mat-icon>{{true | managementIcon}}</mat-icon>
             </mat-option>
@@ -23,7 +23,7 @@
         </mat-select>
     </mat-form-field>
     <ng-container *ngIf="roleForm.controls['isManagementRole'].errors && roleForm.controls['isManagementRole'].touched">
-        <div *ngIf="roleForm.controls['isManagementRole'].errors['required']" class="error-message" style="color: red;">
+        <div *ngIf="roleForm.controls['isManagementRole'].errors['required']" class="error-message">
           This field is required
         </div>
       </ng-container>

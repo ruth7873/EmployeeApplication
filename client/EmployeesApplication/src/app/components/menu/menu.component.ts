@@ -1,22 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { Router, RouterModule, RouterOutlet } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
-import { EmployeeModule } from './modules/employee/employee.module';
 import { MatIconModule } from '@angular/material/icon';
+
 import Swal from 'sweetalert2';
-import { LoginService } from './modules/login/login.service';
-import { AppService } from './app.service';
+import { LoginService } from '../../modules/login/services/login.service';
+import { AppService } from '../../app.service';
+import { Router, RouterModule, RouterOutlet } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-menu',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, HttpClientModule, EmployeeModule, RouterModule, MatIconModule],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  imports: [MatIconModule,CommonModule,RouterOutlet,HttpClientModule,RouterModule ],
+  templateUrl: './menu.component.html',
+  styleUrl: './menu.component.scss'
 })
-export class AppComponent implements OnInit {
-  title = 'EmployeesApplication';
+export class MenuComponent implements OnInit {
   isUserLoggedIn: boolean = false;
 
   constructor(private _router: Router, private _loginService: LoginService, private _appService: AppService) { }
@@ -57,6 +56,5 @@ export class AppComponent implements OnInit {
       })
     }
   }
-
 
 }

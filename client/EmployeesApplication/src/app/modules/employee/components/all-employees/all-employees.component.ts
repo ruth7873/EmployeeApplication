@@ -11,7 +11,9 @@ import { RoleService } from '../../services/role.service';
 import { Role } from '../../models/role.model';
 import { AddRoleComponent } from '../add-role/add-role.component';
 import { AppService } from '../../../../app.service';
+import { MatSnackBar } from '@angular/material/snack-bar'
 import { error } from 'console';
+import { PageEvent } from '@angular/material/paginator';
 @Component({
   selector: 'app-all-employees',
   templateUrl: './all-employees.component.html',
@@ -24,7 +26,14 @@ export class AllEmployeesComponent implements OnInit {
   allRoles: Role[] = [];
   selectedValue: any;
   inputToFilter: string = '';
-  genders=Gender;
+  genders = Gender;
+  startIndex: any;
+  endIndex: any;
+
+  handlePageChange(event: PageEvent) {
+    this.startIndex = event.pageIndex * event.pageSize;
+    this.endIndex = this.startIndex + event.pageSize;
+  }
   onSelectionChange(event: MatRadioChange) {
     this.selectedValue = event.value;
     this.filter()
@@ -48,7 +57,7 @@ export class AllEmployeesComponent implements OnInit {
     const genderToString = (gender: Gender): string => {
       return gender === Gender.Male ? 'זכר' : 'נקבה';
     };
-    
+
     const employeesWithoutRoles = this.employees.map(employee => {
       const { roles, ...employeeDetails } = employee; // פילוח העובד לפרטים ולתפקידים
       // החלפת הערך בעמודת המין למחרוזת "זכר" או "נקבה" באמצעות הפונקציה genderToString
@@ -57,15 +66,23 @@ export class AllEmployeesComponent implements OnInit {
     });
     // המרת הנתונים לגיליון אקסל
     const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(employeesWithoutRoles);
-  
+
     // יצירת חוברת חדשה והוספת הגיליון לחוברת
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Employees');
-  
+
     // שמירת הקובץ כקובץ אקסל
     XLSX.writeFile(wb, 'employees.xlsx');
+
+    // הצגת אלרט עם הודעה
+    this._snackBar.open('Exporting to Excel...', 'Close', {
+      duration: 2200, // זמן הצגת ההודעה במילישניות
+      horizontalPosition: 'center', // מיקום אופקי של ההודעה
+      verticalPosition: 'top', // מיקום אנכי של ההודעה
+      panelClass: ['success-snackbar'] // עיצוב נוסף (לדוגמה: צבע רקע)
+    });
   }
-  
+
 
   deleteEmployee(id: number) {
     this._appService.printAlert('Are you sure?', 'You are about to delete this employee!', 'warning', null, true, true, "Yes, delete it!", "No, keep it").then((result) => {
@@ -149,7 +166,8 @@ export class AllEmployeesComponent implements OnInit {
       }
     });
   }
-  constructor(private _employeeService: EmployeeService, private _roleService: RoleService, private _appService: AppService, private _router: Router, public dialog: MatDialog) { }
+
+  constructor(private _employeeService: EmployeeService, private _roleService: RoleService, private _appService: AppService, private _router: Router, public dialog: MatDialog, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this._employeeService.getEmployees().subscribe(
@@ -173,7 +191,7 @@ export class AllEmployeesComponent implements OnInit {
         }
       );
     }
-    
+
     // this._appService.setEmployees(this.employees)
     // this.employees = this._appService.getAllEmployees();
   }
