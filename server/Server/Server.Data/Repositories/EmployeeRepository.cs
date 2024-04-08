@@ -18,11 +18,7 @@ namespace Server.Data.Repositories
         }
         public async Task<Employee> AddEmployeeAsync(Employee employee)
         {
-            var emp = await checkIfExists(employee);
-            if (emp != null)
-            {
-                return await UpdateEmployeeAsync(emp.Id, employee);
-            }
+            checkIfExists(employee);
             employee.Roles = employee.Roles.GroupBy(r => r.RoleId).Select(g => g.First()).ToList();
             employee.Id = 0;
             await _context.Employees.AddAsync(employee);
@@ -50,9 +46,6 @@ namespace Server.Data.Repositories
         }
         public async Task<Employee> UpdateEmployeeAsync(int id, Employee employee)
         {
-            var emp = await checkIfExists(employee);
-            if (emp != null)
-                id = emp.Id;
             Employee employeeToUpdate = await _context.Employees
             .Include(e => e.Roles) // Include related roles
             .FirstOrDefaultAsync(e => e.Id == id);
@@ -68,8 +61,6 @@ namespace Server.Data.Repositories
                 employeeToUpdate.FirstName = employee.FirstName;
                 employeeToUpdate.LastName = employee.LastName;
                 employeeToUpdate.DateOfBirth = employee.DateOfBirth;
-                // Update roles (assuming employee.Roles contains updated role information)
-                // This may need additional logic depending on how you handle roles
                 employeeToUpdate.Roles = employee.Roles.GroupBy(r => r.RoleId).Select(g => g.First()).ToList();
 
                 await _context.SaveChangesAsync();
@@ -79,10 +70,13 @@ namespace Server.Data.Repositories
             return await AddEmployeeAsync(employee); // Employee with the given ID not found
         }
 
-        public async Task<Employee> checkIfExists(Employee employee)
+        public void checkIfExists(Employee employee)
         {
-            return await _context.Employees.FirstOrDefaultAsync(emp => emp.IdentificationNumber == employee.IdentificationNumber);
-
+            var a = _context.Employees.FirstOrDefault(emp => emp.IdentificationNumber == employee.IdentificationNumber);
+            if (a != null)
+            {
+                throw new InvalidOperationException("This Identification Number is already exists.");
+            }
         }
     }
 }

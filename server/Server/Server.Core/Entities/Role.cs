@@ -11,7 +11,7 @@ namespace Server.Core.Entities
         public int Id { get; set; }
         public string RoleName { get; set; }
         public bool IsManagementRole { get; set; }
-        public Role(int roleId,string roleName,bool isManagementRole)
+        public Role(int roleId, string roleName, bool isManagementRole)
         {
             this.Id = roleId;
             this.RoleName = roleName;
@@ -19,8 +19,8 @@ namespace Server.Core.Entities
         }
         public Role()
         {
-            
+
         }
     }
-       
+
 }

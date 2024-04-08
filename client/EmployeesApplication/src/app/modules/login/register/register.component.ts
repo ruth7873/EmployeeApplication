@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../login.service';
 import { User } from '../user.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AppService } from '../../../app.service';
+import Swal from 'sweetalert2';
+import { error } from 'console';
 
 @Component({
   selector: 'app-register',
@@ -11,13 +13,34 @@ import { AppService } from '../../../app.service';
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })
-export class RegisterComponent {
+export class RegisterComponent
+//  implements OnInit 
+ {
   hide: boolean = true;
   registerForm: FormGroup;
   userName: string = ""
   constructor(private _loginService: LoginService, private _appService: AppService, private router: Router) {
     this.user = new User();
   }
+  // async ngOnInit(): Promise<void> {
+  //   const { value: password } = await Swal.fire({
+  //     title: "Enter your password",
+  //     input: "password",
+  //     inputLabel: "Password",
+  //     inputPlaceholder: "Enter your password",
+  //     inputAttributes: {
+  //       maxlength: "10",
+  //       autocapitalize: "off",
+  //       autocorrect: "off"
+  //     }
+  //   });
+    
+  //   if (password) {
+  //     this._loginService.passwordToRegister(password).subscribe(d=>console.log(d),error=>
+  //     {this._appService.printAlert("wrong password!","Are you authorized?","question",2500,false,false,"","")    
+  //     this.router.navigate(["/user/login"])})
+  //   }
+  // }
   private _user: User = new User();
   public get user(): User {
     return this._user;

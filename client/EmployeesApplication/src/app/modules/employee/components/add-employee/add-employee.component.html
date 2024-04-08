@@ -47,8 +47,12 @@
       <mat-label>Gender</mat-label>
       <mat-icon>people</mat-icon>
       <mat-radio-group formControlName="gender">
-        <mat-radio-button [value]=0>Male</mat-radio-button>
-        <mat-radio-button [value]=1>Female</mat-radio-button>
+        <mat-radio-button [value]=0>Male
+          <mat-icon>{{"Male"| genderIcon }}</mat-icon>
+        </mat-radio-button>
+        <mat-radio-button [value]=1>Female
+          <mat-icon>{{"Female"| genderIcon }}</mat-icon>
+        </mat-radio-button>
       </mat-radio-group>
 
       <div class="form-field">

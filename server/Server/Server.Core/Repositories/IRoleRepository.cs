@@ -13,6 +13,5 @@ namespace Server.Core.Repositories
         Task<Role> GetRoleByIdAsync(int id);
         Task<Role> AddRoleAsync(Role role);
         void DeleteRole(int id);
-
     }
 }

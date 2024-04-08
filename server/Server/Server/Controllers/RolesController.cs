@@ -16,7 +16,7 @@ namespace Server.API.Controllers
         private readonly IRoleService _roleService;
         private readonly IMapper _mapper;
 
-        public RolesController(IRoleService roleService,IMapper mapper)
+        public RolesController(IRoleService roleService, IMapper mapper)
         {
             _roleService = roleService;
             _mapper = mapper;
@@ -46,7 +46,7 @@ namespace Server.API.Controllers
         {
             var RoleToAdd = _mapper.Map<Role>(role);
             var addedRole = await _roleService.AddRoleAsync(RoleToAdd);
-            if(addedRole==null)
+            if (addedRole == null)
             {
                 return BadRequest("This role already exists!! Enter another role");
             }

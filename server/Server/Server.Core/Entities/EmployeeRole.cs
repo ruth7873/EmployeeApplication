@@ -13,13 +13,5 @@ namespace Server.Core.Entities
         public int RoleId { get; set; }
         public Role Role { get; set; }
         public DateTime EntryDate { get; set; } // תאריך כניסה לתפקיד
-
-
-        //public EmployeeRole(int employeeId, int roleId, DateTime entryDate)
-        //{
-        //    EmployeeId = employeeId;
-        //    RoleId = roleId;
-        //    EntryDate = entryDate;
-        //}
     }
 }

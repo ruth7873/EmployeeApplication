@@ -13,6 +13,5 @@ namespace Server.Core.Services
         Task<Role> GetRoleByIdAsync(int id);
         Task<Role> AddRoleAsync(Role role);
         void DeleteRoleAsync(int id);
-
     }
 }

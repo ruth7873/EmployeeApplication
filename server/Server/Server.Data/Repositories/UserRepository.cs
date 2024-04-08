@@ -42,7 +42,7 @@ namespace Server.Data.Repositories
                 u.UserName = user.UserName;
                 u.Password = user.Password;
             }
-            await _context.SaveChangesAsync();  
+            await _context.SaveChangesAsync();
             return u;
         }
 

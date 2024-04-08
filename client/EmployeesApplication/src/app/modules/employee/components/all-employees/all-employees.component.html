@@ -12,13 +12,21 @@
     <mat-icon class="search-icon">search</mat-icon>
   </div>
   <div class="filter-container">
-    <mat-radio-group (change)="onSelectionChange($event)">
+    <mat-radio-group class="radio-group" (change)="onSelectionChange($event)">
+      <mat-radio-button class="radio-button" [value]="null">Cancel</mat-radio-button>
+      <mat-radio-button class="radio-button" [value]="0">
+        <mat-icon>{{"Male" | genderIcon }}</mat-icon> Male</mat-radio-button>
+      <mat-radio-button class="radio-button" [value]="1">
+        <mat-icon>{{"Female" | genderIcon}}</mat-icon> Female</mat-radio-button>
+    </mat-radio-group>
+    
+    <!-- <mat-radio-group (change)="onSelectionChange($event)">
       <mat-radio-button [value]="null">Cancel</mat-radio-button>
       <mat-radio-button [value]="0">
         <mat-icon>{{"Male" | genderIcon }}</mat-icon></mat-radio-button>
       <mat-radio-button [value]="1">
         <mat-icon>{{"Female" | genderIcon}}</mat-icon></mat-radio-button>
-    </mat-radio-group>
+    </mat-radio-group> -->
   </div>
 
 </div>

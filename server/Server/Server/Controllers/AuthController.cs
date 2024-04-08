@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Server.API.Model;
@@ -19,7 +20,7 @@ namespace Server.API.Controllers
         private readonly IConfiguration _configuration;
         private readonly DataContext _context;
 
-        public AuthController(IConfiguration configuration,DataContext context)
+        public AuthController(IConfiguration configuration, DataContext context)
         {
             _configuration = configuration;
             _context = context;
@@ -31,7 +32,7 @@ namespace Server.API.Controllers
 
             var user = _context.Users.FirstOrDefault(u => u.UserName == loginModel.UserName);
 
-            if (user!=null &&user.Password==loginModel.Password)
+            if (user != null && user.Password == loginModel.Password)
             {
                 var claims = new List<Claim>()
             {
@@ -52,6 +53,14 @@ namespace Server.API.Controllers
                 return Ok(new { Token = tokenString });
             }
             return Unauthorized();
+        }
+
+        [HttpPost("/api/Register")]
+        public IActionResult PasswordToAddUser([FromBody] string password)
+        {
+            if (password.Equals(_configuration["addingUsersPassword"]))
+                return Ok();
+            return BadRequest("the password is invalid!!");
         }
     }
 

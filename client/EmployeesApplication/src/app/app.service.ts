@@ -20,7 +20,8 @@ export class AppService {
             timerProgressBar: true,
             showCancelButton: cancel,
             confirmButtonText: confirmText,
-            cancelButtonText: cancelText
+            cancelButtonText: cancelText,
+            
         })
     }
 

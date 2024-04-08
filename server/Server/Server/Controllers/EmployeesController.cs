@@ -12,7 +12,6 @@ namespace Server.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-
     public class EmployeesController : ControllerBase
     {
         private readonly IEmployeeService _employeeService;
@@ -27,7 +26,7 @@ namespace Server.API.Controllers
         [HttpGet]
         [Authorize]
         public async Task<IActionResult> Get()
-       {
+        {
             var emps = await _employeeService.GetAllEmployeesAsync();
             var empDTO = emps.Select(e => _mapper.Map<EmployeeDTO>(e));
             return Ok(empDTO);
@@ -61,7 +60,7 @@ namespace Server.API.Controllers
         [Authorize]
         public async Task<IActionResult> Put(int id, [FromBody] EmployeePostModel employee)
         {
-            var empToUpdate=_mapper.Map<Employee>(employee);
+            var empToUpdate = _mapper.Map<Employee>(employee);
             var emp = await _employeeService.UpdateEmployeeAsync(id, empToUpdate);
             var newEmp = await _employeeService.GetEmployeeByIDAsync(emp.Id);
             var empDTO = _mapper.Map<EmployeeDTO>(newEmp);

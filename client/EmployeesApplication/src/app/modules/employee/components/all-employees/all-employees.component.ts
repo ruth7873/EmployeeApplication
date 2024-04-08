@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Employee } from '../../models/employee.model';
+import { Employee, Gender } from '../../models/employee.model';
 import { EmployeeService } from '../../services/employee.service';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
@@ -24,6 +24,7 @@ export class AllEmployeesComponent implements OnInit {
   allRoles: Role[] = [];
   selectedValue: any;
   inputToFilter: string = '';
+  genders=Gender;
   onSelectionChange(event: MatRadioChange) {
     this.selectedValue = event.value;
     this.filter()
@@ -40,12 +41,31 @@ export class AllEmployeesComponent implements OnInit {
     );
 
   }
+
   exportToExcel(): void {
-    const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.employees);
+    // יצירת עותק של העובדים עם הפרטים שלהם בלבד (ללא עמודת התפקידים)
+
+    const genderToString = (gender: Gender): string => {
+      return gender === Gender.Male ? 'זכר' : 'נקבה';
+    };
+    
+    const employeesWithoutRoles = this.employees.map(employee => {
+      const { roles, ...employeeDetails } = employee; // פילוח העובד לפרטים ולתפקידים
+      // החלפת הערך בעמודת המין למחרוזת "זכר" או "נקבה" באמצעות הפונקציה genderToString
+      employeeDetails.gender = genderToString(employeeDetails.gender) as any;
+      return employeeDetails;
+    });
+    // המרת הנתונים לגיליון אקסל
+    const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(employeesWithoutRoles);
+  
+    // יצירת חוברת חדשה והוספת הגיליון לחוברת
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Employees');
+  
+    // שמירת הקובץ כקובץ אקסל
     XLSX.writeFile(wb, 'employees.xlsx');
   }
+  
 
   deleteEmployee(id: number) {
     this._appService.printAlert('Are you sure?', 'You are about to delete this employee!', 'warning', null, true, true, "Yes, delete it!", "No, keep it").then((result) => {

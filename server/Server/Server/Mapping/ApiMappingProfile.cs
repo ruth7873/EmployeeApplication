@@ -9,10 +9,10 @@ namespace Server.API.Mapping
     {
         public ApiMappingProfile()
         {
-            CreateMap<EmployeePostModel,Employee>().ReverseMap();
-            CreateMap<RolePostModel,Role>().ReverseMap();
-            CreateMap<EmployeeRolePostModel,EmployeeRole>().ReverseMap();
-            CreateMap<UserPostModel,User>().ReverseMap();
+            CreateMap<EmployeePostModel, Employee>().ReverseMap();
+            CreateMap<RolePostModel, Role>().ReverseMap();
+            CreateMap<EmployeeRolePostModel, EmployeeRole>().ReverseMap();
+            CreateMap<UserPostModel, User>().ReverseMap();
         }
     }
 }

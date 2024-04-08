@@ -17,7 +17,7 @@ namespace Server.Core.Entities
         public Gender Gender { get; set; }
         public List<EmployeeRole> Roles { get; set; }
         public bool Status { get; set; }
-        public Employee(string firstName,string lastName,string idNumber,DateTime start, DateTime birth,Gender gender,List<EmployeeRole>employeeRoles,bool status)
+        public Employee(string firstName, string lastName, string idNumber, DateTime start, DateTime birth, Gender gender, List<EmployeeRole> employeeRoles, bool status)
         {
             FirstName = firstName;
             LastName = lastName;
@@ -30,7 +30,7 @@ namespace Server.Core.Entities
         }
         public Employee()
         {
-            
+
         }
     }
 

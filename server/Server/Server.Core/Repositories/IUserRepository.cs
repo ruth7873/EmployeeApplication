@@ -12,6 +12,6 @@ namespace Server.Core.Repositories
         Task<IEnumerable<User>> GetUserssAsync();
         Task<User> GetUserByIdAsync(int id);
         Task<User> AddUserAsync(User user);
-        Task<User> UpdateUserAsync(int id,User user);
+        Task<User> UpdateUserAsync(int id, User user);
     }
 }

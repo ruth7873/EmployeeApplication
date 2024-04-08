@@ -28,14 +28,14 @@ namespace Server.API.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            return Ok(await  _userService.GetUsersAsync());
+            return Ok(await _userService.GetUsersAsync());
         }
 
         // GET api/<UsersController>/5
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            var user= await _userService.GetUserByIdAsync(id);
+            var user = await _userService.GetUserByIdAsync(id);
             if (user == null)
             {
                 return NotFound();
