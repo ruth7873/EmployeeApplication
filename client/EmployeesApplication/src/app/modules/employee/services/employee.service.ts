@@ -4,11 +4,16 @@ import { Observable } from "rxjs";
 import { Employee } from "../models/employee.model";
 import { Router } from "@angular/router";
 import { AppService } from "../../../app.service";
+import { ConfigService } from "../../../services/config.service";
 
 @Injectable()
 export class EmployeeService {
-    constructor(private _http: HttpClient, private _router: Router, private _appService: AppService) { }
-    private apiUrl = 'https://localhost:7020/api/Employees';
+    constructor(private _http: HttpClient, private _router: Router, private _appService: AppService, private _configService: ConfigService) {
+        console.log(this._configService);        
+        this.apiUrl = this._configService.Config?.apiUrl;
+        this.apiUrl=`${this.apiUrl}/Employees`;
+    }
+    apiUrl: any;
     token: any;
     headers: any;
     authorization() {

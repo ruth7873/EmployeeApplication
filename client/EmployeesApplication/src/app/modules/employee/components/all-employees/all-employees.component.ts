@@ -30,9 +30,21 @@ export class AllEmployeesComponent implements OnInit {
   endIndex: any;
 
   constructor(private _employeeService: EmployeeService, private _roleService: RoleService, private _appService: AppService,
-    private _router: Router, public dialog: MatDialog, private _snackBar: MatSnackBar) { }
+    private _router: Router, public dialog: MatDialog, private _snackBar: MatSnackBar) {      
+      // if(this._employeeService.apiUrl!=="undefined/Employees"){
+        this.getEmployeesFromService();
+        this.getRolesFromService();
+     }
 
   ngOnInit(): void {
+
+    let pager = new PageEvent()
+    pager.pageSize = 3;
+    pager.pageIndex = 1;
+    this.handlePageChange(pager)
+  }
+
+  getEmployeesFromService(){
     this._employeeService.getEmployees().subscribe(
       d => {
         this.employees = d;
@@ -45,19 +57,15 @@ export class AllEmployeesComponent implements OnInit {
         }
       }
     );
-    if (this.allRoles.length === 0) {
+  }
+
+  getRolesFromService() {
       this._roleService.getRoles().subscribe(
         data => {
           this.allRoles = data;
-        }
-      );
+        })
     }
-    let pager= new PageEvent()
-    pager.pageSize=3;
-    pager.pageIndex=1;
-    this.handlePageChange(pager)
-  }
-
+  
   handlePageChange(event: PageEvent) {
     this.startIndex = event.pageIndex * event.pageSize;
     this.endIndex = this.startIndex + event.pageSize;

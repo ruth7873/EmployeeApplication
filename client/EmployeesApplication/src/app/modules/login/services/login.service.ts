@@ -1,13 +1,17 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { User } from "./models/user.model";
+import { User } from "../models/user.model";
+import { ConfigService } from "../../../services/config.service";
+import { initializeConfig } from "../../../app.config";
 
 @Injectable()
 export class LoginService {
-  private apiUrl = 'https://localhost:7020/api';
+  apiUrl: any;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private _configService: ConfigService) {    
+    this.apiUrl = this._configService.Config?.apiUrl;
+  }
 
   login(user: User): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/Auth`, user);

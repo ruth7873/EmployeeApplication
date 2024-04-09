@@ -9,6 +9,7 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
 import { LoginRoutingModule } from "./login-routing.module";
 import { RegisterComponent } from "./components/register/register.component";
+import { ConfigService } from "../../services/config.service";
 
 @NgModule({
     declarations: [LoginComponent, RegisterComponent],

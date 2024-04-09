@@ -1,12 +1,23 @@
-import { ApplicationConfig } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { APP_INITIALIZER, ApplicationConfig } from "@angular/core";
+import { ConfigService } from "./services/config.service";
+import { provideRouter } from "@angular/router";
+import { provideClientHydration } from "@angular/platform-browser";
+import { routes } from "./app.routes";
+import { provideAnimations } from "@angular/platform-browser/animations";
+import { provideHttpClient } from "@angular/common/http";
+import { AppService } from "./app.service";
 
-import { routes } from './app.routes';
-import { provideClientHydration } from '@angular/platform-browser';
-import { provideHttpClient } from '@angular/common/http';
 
+export function initializeConfig(configService: ConfigService) {
+  return () => configService.loadConfig();
+}
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes), provideClientHydration(),provideAnimations(),    provideHttpClient(),AppService]
+  providers: [ConfigService, 
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initializeConfig,
+      deps: [ConfigService],
+      multi: true,
+    },
+    provideRouter(routes), provideClientHydration(), provideAnimations(), provideHttpClient(), AppService]
 };
-import { provideAnimations } from '@angular/platform-browser/animations';
-import { AppService } from './app.service';
