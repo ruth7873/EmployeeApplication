@@ -13,6 +13,7 @@ namespace Server.API.Mapping
             CreateMap<RolePostModel, Role>().ReverseMap();
             CreateMap<EmployeeRolePostModel, EmployeeRole>().ReverseMap();
             CreateMap<UserPostModel, User>().ReverseMap();
+            CreateMap<LoginModel,User>().ReverseMap();
         }
     }
 }

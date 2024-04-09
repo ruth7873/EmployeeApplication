@@ -1,4 +1,3 @@
-
 <div class="table-header">
   <button mat-button class="bold-button" (click)="editEmployee(newEmployee)">
     <mat-icon>group_add</mat-icon> Add Employee
@@ -6,8 +5,8 @@
   <button mat-button class="bold-button" (click)="addRole()">
     <mat-icon>work</mat-icon> Add Role
   </button>
-  <button mat-button class="bold-button" (click)="exportToExcel()"> <mat-icon>cloud_download</mat-icon> Export to Excel </button>
-  <!-- <app-filter></app-filter> -->
+  <button mat-button class="bold-button" (click)="exportToExcel()"> <mat-icon>cloud_download</mat-icon> Export to Excel
+  </button>
   <div class="filter-container">
     <input matInput type="text" placeholder="Search by name" [(ngModel)]="inputToFilter" (input)="filter()" />
     <mat-icon class="search-icon">search</mat-icon>
@@ -23,37 +22,43 @@
   </div>
 </div>
 
-<mat-paginator [length]="employees?.length" [pageSize]="10" [pageSizeOptions]="[3, 5, 10, 25, 100]" (page)="handlePageChange($event)"></mat-paginator>
+<mat-paginator [length]="employees?.length" [pageSize]="3" [pageSizeOptions]="[3, 5, 10, 25, 100]"
+  (page)="handlePageChange($event)"></mat-paginator>
 
-<table class="employees-table">
-  <thead>
-    <tr>
-      <th>Last Name</th>
-      <th>First Name</th>
-      <th>Identification Number</th>
-      <th>Employment Start Date</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <ng-container *ngFor="let employee of employees | slice: startIndex: endIndex">
+  <table class="employees-table">
+    <thead>
       <tr>
-        <td>{{ employee.lastName }}</td>
-        <td>{{ employee.firstName }}</td>
-        <td>{{ employee.identificationNumber }}</td>
-        <td>{{ employee.employmentStartDate | date }}</td>
-        <td>
-          <button mat-icon-button (click)="editEmployee(employee)">
-            <mat-icon>edit</mat-icon>
-          </button>
-          <button mat-icon-button (click)="showDetailes(employee)">
-            <mat-icon>info</mat-icon>
-          </button>
-          <button mat-icon-button (click)="deleteEmployee(employee.id)">
-            <mat-icon>delete</mat-icon>
-          </button>
-        </td>
+        <th>Last Name</th>
+        <th>First Name</th>
+        <th>Identification Number</th>
+        <th>Employment Start Date</th>
+        <th>Actions</th>
       </tr>
-    </ng-container>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let employee of employees | slice: startIndex: endIndex">
+        <tr>
+          <td>{{ employee.lastName }}</td>
+          <td>{{ employee.firstName }}</td>
+          <td>{{ employee.identificationNumber }}</td>
+          <td>{{ employee.employmentStartDate | date }}</td>
+          <td>
+            <button mat-icon-button (click)="editEmployee(employee)" matTooltip="Edit Employee">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button (click)="showDetailes(employee)" matTooltip="Show Details">
+              <mat-icon>info</mat-icon>
+            </button>
+            <button mat-icon-button (click)="deleteEmployee(employee.id)" matTooltip="Delete Employee">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+  
+
+<div class="empty">
+
+</div>

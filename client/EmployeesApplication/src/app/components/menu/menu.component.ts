@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-
 import Swal from 'sweetalert2';
 import { LoginService } from '../../modules/login/services/login.service';
 import { AppService } from '../../app.service';
@@ -11,7 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 @Component({
   selector: 'app-menu',
   standalone: true,
-  imports: [MatIconModule,CommonModule,RouterOutlet,HttpClientModule,RouterModule ],
+  imports: [MatIconModule, CommonModule, RouterOutlet, HttpClientModule, RouterModule],
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.scss'
 })
@@ -56,5 +55,4 @@ export class MenuComponent implements OnInit {
       })
     }
   }
-
 }

@@ -6,19 +6,10 @@ import { AddEmployeeComponent } from "./components/add-employee/add-employee.com
 
 const APP_ROUTES: Route[] = [
   { path: "", redirectTo: "employee/allEmployees", pathMatch: 'full' },
-  {
-    path: "allEmployees", component: AllEmployeesComponent
-    //  ,canActivate:[LoginService]
-  },
+  { path: "allEmployees", component: AllEmployeesComponent  },
   { path: "detailes", component: ShowEmployeeComponent },
-  {
-    path: "add", component: AddEmployeeComponent
-    //  ,canActivate:[LoginService]
-  },
-  {
-    path: "edit", component: AddEmployeeComponent
-    //  ,canActivate:[LoginService]
-  },
+  { path: "add", component: AddEmployeeComponent  },
+  { path: "edit", component: AddEmployeeComponent  },
 ]
 @NgModule({
   imports: [RouterModule.forChild(APP_ROUTES)],

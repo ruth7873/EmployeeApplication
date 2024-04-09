@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Server.API.Model;
 using Server.Core.Entities;
+using Server.Core.Services;
 using Server.Data;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -17,20 +19,22 @@ namespace Server.API.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
+        private readonly IAuthService _authService;
         private readonly IConfiguration _configuration;
-        private readonly DataContext _context;
+        private readonly IMapper _mapper;
 
-        public AuthController(IConfiguration configuration, DataContext context)
+        public AuthController(IConfiguration configuration,IMapper mapper,IAuthService authService)
         {
             _configuration = configuration;
-            _context = context;
+            _mapper = mapper;
+            _authService = authService;
         }
 
         [HttpPost]
-        public IActionResult Login([FromBody] LoginModel loginModel)
+        public async Task<IActionResult> Login([FromBody] LoginModel loginModel)
         {
-
-            var user = _context.Users.FirstOrDefault(u => u.UserName == loginModel.UserName);
+            var u=_mapper.Map<User>(loginModel);
+            User user =await _authService.LoginAsunc(u);
 
             if (user != null && user.Password == loginModel.Password)
             {
@@ -50,8 +54,8 @@ namespace Server.API.Controllers
                     signingCredentials: signinCredentials
                 );
                 var tokenString = new JwtSecurityTokenHandler().WriteToken(tokeOptions);
-             
-                    return Ok(new { Token = tokenString });
+
+                return Ok(new { Token = tokenString });
             }
             return Unauthorized();
         }

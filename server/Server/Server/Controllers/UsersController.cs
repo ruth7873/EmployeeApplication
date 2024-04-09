@@ -61,10 +61,5 @@ namespace Server.API.Controllers
             return Ok(userToUpdate);
         }
 
-        // DELETE api/<UsersController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }

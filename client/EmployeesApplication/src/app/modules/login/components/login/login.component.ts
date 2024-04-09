@@ -14,17 +14,19 @@ export class LoginComponent {
   user: User = new User;
   userForm: FormGroup;
   hide: boolean = true;
+
   constructor(private _loginService: LoginService, private _appService: AppService, private _router: Router) {
     this.userForm = new FormGroup({
-      userName: new FormControl(this.user.userName, [Validators.required, Validators.minLength(3)]),
-      password: new FormControl(this.user.password, [Validators.required, Validators.minLength(3)]),
+      userName: new FormControl("", [Validators.required, Validators.minLength(3)]),
+      password: new FormControl("", [Validators.required, Validators.minLength(3)]),
     })
   }
+
   login() {
     this.user = this.userForm.value;
     this._loginService.login(this.user).subscribe(d => {
-      
-      if (typeof (window) !== undefined&&typeof sessionStorage !== 'undefined')
+
+      if (typeof (window) !== undefined && typeof sessionStorage !== 'undefined')
         sessionStorage.setItem("token", "Bearer " + d.token);
       if (d) {
         this._appService.printAlert(`Welcome! ${this.user.userName}`, "You've logged in successfully!", "success", 2000, false, false, "", "");
@@ -33,7 +35,6 @@ export class LoginComponent {
     }
       , error => {
         this._appService.printAlert("Register now!", "You are not registered in the system yet", "error", 2000, false, false, "", "");
-        this._router.navigate(["user/register"], { state: { user: this.user } });
       }
     )
   }

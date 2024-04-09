@@ -9,7 +9,7 @@ export class AppService {
     employees: Employee[] = [];
 
     constructor() { }
-
+    showImage:boolean=true;
     printAlert(title: string, text: string, icon: any, timer: number, confirm: boolean, cancel: boolean, confirmText: string, cancelText: string) {
         return Swal.fire({
             title: title,

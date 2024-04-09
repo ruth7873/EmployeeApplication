@@ -53,7 +53,6 @@ namespace Server.Data.Repositories
             if (employeeToUpdate != null)
             {
                 // Update employee properties
-                employeeToUpdate.Id = id;
                 employeeToUpdate.EmploymentStartDate = employee.EmploymentStartDate;
                 employeeToUpdate.Status = employee.Status;
                 employeeToUpdate.IdentificationNumber = employee.IdentificationNumber;

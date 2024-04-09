@@ -15,14 +15,11 @@
 
 .employees-table th {
   text-align: center;
+  background-color:whitesmoke;
 }
 
 .employees-table td {
   text-align: center;
-}
-
-.employees-table th,
-.employees-table td {
   padding: 10px;
   border-bottom: 1px solid #ccc;
 }
@@ -68,20 +65,22 @@
 .mat-radio-button:last-child {
   margin-right: 0;
 }
+
 .bold-button {
   font-weight: bold;
-  background-color: transparent; /* שקיפות רקע */
-  color: #007BFF; /* צבע טקסט */
-  border: 2px solid #007BFF; /* מסגרת עם צבע כחול */
-  border-radius: 5px; /* רינוע עגול */
-  padding: 10px 20px; /* מרווחים */
-  transition: background-color 0.3s, color 0.3s; /* אנימציה */
+  background-color: transparent;
+  color: #007BFF;
+  border: 2px solid #007BFF;
+  border-radius: 5px;
+  padding: 10px 20px;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 .bold-button:hover {
-  background-color: #007BFF; /* צביעת רקע בכחול */
-  color: white; /* שינוי צבע טקסט ללבן */
+  background-color: #007BFF;
+  color: white;
 }
+
 .mat-paginator {
   visibility: visible;
 }
@@ -122,14 +121,18 @@
     border: none;
   }
 }
+
 @media screen and (max-width: 1000px) {
   .table-header {
     flex-wrap: wrap;
     justify-content: center;
   }
 
-  .table-header > * {
+  .table-header>* {
     margin: 5px;
   }
 }
 
+.empty{
+height: 40px;
+}

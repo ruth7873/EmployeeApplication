@@ -24,8 +24,6 @@ namespace Server.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(_configuration["DbConnectionString"]);
-
-            //optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=employees_db");
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

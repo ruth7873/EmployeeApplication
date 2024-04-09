@@ -5,11 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Server.Core.DTOs
+namespace Server.Core.Repositories
 {
-    public class EmployeeRoleDTO
+    public interface IAuthRepository
     {
-        public Role Role { get; set; }
-        public DateOnly EntryDate { get; set; }
+        public Task<User> LoginAsync(User loginModel);
     }
 }

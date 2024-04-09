@@ -1,5 +1,6 @@
 <div class="center-form">
     <form [formGroup]="registerForm" class="registration-form">
+        <h1>Enter your detailes to register</h1>
         <mat-form-field>
             <mat-label>User Name</mat-label>
             <input matInput type="text" placeholder="User Name" formControlName="userName">
@@ -50,11 +51,11 @@
             <mat-icon matSuffix>email</mat-icon>
         </mat-form-field>
         <ng-container *ngIf="registerForm.controls['email'].errors && registerForm.controls['email'].touched">
-            <div
-                *ngIf="!registerForm.controls['email'].errors['required']&& registerForm.controls['email'].errors['email']"class="error-message">
+            <div *ngIf="!registerForm.controls['email'].errors['required']&& registerForm.controls['email'].errors['email']"
+                class="error-message">
                 The email address is invalid
             </div>
-            <div *ngIf="registerForm.controls['email'].errors['required']"class="error-message">
+            <div *ngIf="registerForm.controls['email'].errors['required']" class="error-message">
                 This field is required
             </div>
         </ng-container>

@@ -17,7 +17,7 @@ export class LogoutComponent implements OnInit {
       if (result.isConfirmed) {
         if (typeof sessionStorage !== 'undefined') {
           sessionStorage.removeItem("token")
-        } 
+        }
         this.router.navigate(['/user/login'])
         this._appServics.printAlert("Goodbye!", "You successfully logged out!!!", "success", 2000, false, false, "", "");
       }
